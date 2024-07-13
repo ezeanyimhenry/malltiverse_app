@@ -16,7 +16,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
       right: 24,
       bottom: 24,
       child: Container(
-        height: 70,
+        height: 85,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: BottomNavigationBar(

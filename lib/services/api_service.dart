@@ -46,6 +46,59 @@ class ApiService {
       throw Exception("Failed to load products");
     }
   }
+
+  Future<List<Product>> fetchProductsByCategory({
+    required String category,
+    int page = 1,
+    int size = 10,
+    bool reverseSort = false,
+  }) async {
+    if (apiKey.isEmpty || appId.isEmpty || organizationId.isEmpty) {
+      throw Exception("API Key, App ID, or Organization ID is not set");
+    }
+
+    try {
+      final response = await http.get(
+        Uri.parse(apiUrl).replace(queryParameters: {
+          'organization_id': organizationId,
+          'reverse_sort': reverseSort.toString(),
+          'page': page.toString(),
+          'size': size.toString(),
+          'Appid': appId,
+          'Apikey': apiKey,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = json.decode(response.body);
+        List<dynamic> items = data['items'];
+
+        // Filter products by category name
+        List<Product> filteredProducts = [];
+        for (var item in items) {
+          List<dynamic> categories = item['categories'];
+          for (var categoryInfo in categories) {
+            if (categoryInfo['name'].toLowerCase() == category.toLowerCase()) {
+              filteredProducts.add(Product.fromJson(item));
+              break; // Stop checking other categories for this product
+            }
+          }
+        }
+
+        return filteredProducts;
+      } else if (response.statusCode == 403) {
+        throw Exception("Invalid credentials: ${response.body}");
+      } else if (response.statusCode == 404) {
+        throw Exception("Endpoint not found: ${response.body}");
+      } else {
+        throw Exception(
+            "Failed to load products: ${response.statusCode} - ${response.body}");
+      }
+    } catch (e) {
+      print("Error during API call: $e");
+      throw Exception("Failed to load products");
+    }
+  }
 }
 
 

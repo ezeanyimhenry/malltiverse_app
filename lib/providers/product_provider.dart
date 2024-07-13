@@ -28,6 +28,22 @@ class ProductProvider with ChangeNotifier {
     }
   }
 
+  Future<void> fetchProductsByCategory(String category) async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      _products =
+          await ApiService().fetchProductsByCategory(category: category);
+      _errorMessage = null;
+    } catch (error) {
+      _errorMessage = error.toString();
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
   void addToCart(Product product) {
     _cartItems.add(product);
     notifyListeners();

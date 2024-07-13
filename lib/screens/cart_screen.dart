@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart_provider.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
+import 'checkout_screen.dart';
+import 'main_screen.dart';
 
 class CartScreen extends StatelessWidget {
   @override
@@ -345,7 +347,11 @@ class CartScreen extends StatelessWidget {
                                   ),
                                 ),
                                 onPressed: () {
-                                  // Implement apply discount code functionality
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CheckoutScreen()),
+                                  );
                                 },
                                 child: Text(
                                   'Checkout',
@@ -370,16 +376,29 @@ class CartScreen extends StatelessWidget {
             ),
           ),
           // Bottom Navigation Bar
-          Positioned(
-            left: 24,
-            right: 24,
-            bottom: 24,
-            child: CustomBottomNavigationBar(
-              selectedIndex: 1,
-              onItemTapped: (index) {
-                Navigator.pop(context);
-              },
-            ),
+          CustomBottomNavigationBar(
+            selectedIndex: 1,
+            onItemTapped: (index) {
+              if (index == 0) {
+                // Navigate to CartScreen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MainScreen()),
+                );
+              } else if (index == 1) {
+                // Navigate to CartScreen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CartScreen()),
+                );
+              } else if (index == 2) {
+                // Navigate to CheckoutScreen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CheckoutScreen()),
+                );
+              }
+            },
           ),
         ],
       ),
