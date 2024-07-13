@@ -1,4 +1,5 @@
 class Product {
+  final String id;
   final String name;
   final String description;
   final String uniqueId;
@@ -6,8 +7,10 @@ class Product {
   final double price;
   final String imageUrl;
   final int rating;
+  final List<dynamic> categories;
 
   Product({
+    required this.id,
     required this.name,
     this.description = '',
     required this.uniqueId,
@@ -15,9 +18,11 @@ class Product {
     this.price = 0.00,
     this.rating = 0,
     this.imageUrl = '',
+    required this.categories,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
+    List<dynamic> categories = json['categories'] ?? [];
     String imageUrl = '';
     if (json['photos'] != null && json['photos'].isNotEmpty) {
       imageUrl = json['photos'][0]['url'];
@@ -46,6 +51,7 @@ class Product {
     }
 
     return Product(
+      id: json['id'],
       name: json['name'],
       description: json['description'] ?? '',
       uniqueId: json['unique_id'],
@@ -53,6 +59,14 @@ class Product {
       price: extractedPrice,
       rating: 5,
       imageUrl: imageUrl,
+      categories: categories,
     );
   }
+}
+
+class CartItem {
+  final Product product;
+  int quantity;
+
+  CartItem({required this.product, this.quantity = 1});
 }

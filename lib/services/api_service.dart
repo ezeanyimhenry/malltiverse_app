@@ -47,3 +47,73 @@ class ApiService {
     }
   }
 }
+
+
+// import 'dart:convert';
+// import 'package:http/http.dart' as http;
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import '../models/product.dart';
+
+// class ApiService {
+//   final String apiUrl = dotenv.env['TIMBU_BASE_URL']!;
+//   final String apiKey = dotenv.env['TIMBU_API_KEY'] ?? '';
+//   final String appId = dotenv.env['TIMBU_APP_ID'] ?? '';
+//   final String organizationId = dotenv.env['TIMBU_ORGANIZATION_ID'] ?? '';
+
+//   // Define manually an array of categories
+//   List<String> categories = [
+//     'Tech Gadgets',
+//     'Clothing',
+//     'Home Appliances',
+//     'Books',
+//     'Toys',
+//     'Uncategorized', // You can add a default category if needed
+//   ];
+
+//   // Fetch all categories
+//   Future<List<String>> fetchCategories() async {
+//     // Simulate fetching categories from an API
+//     // In this case, just return the manually defined categories
+//     return categories;
+//   }
+
+//   Future<List<Product>> fetchProductsByCategory(String category,
+//       {int page = 1, int size = 10}) async {
+//     if (apiKey.isEmpty || appId.isEmpty || organizationId.isEmpty) {
+//       throw Exception("API Key, App ID, or Organization ID is not set");
+//     }
+
+//     try {
+//       String apiUrl = "${dotenv.env['TIMBU_BASE_URL']!}products?";
+//       apiUrl += (category.isNotEmpty)
+//           ? "category=$category&"
+//           : "category=Uncategorized&"; // Default to Uncategorized
+//       apiUrl +=
+//           "organization_id=$organizationId&page=$page&size=$size&Appid=$appId&Apikey=$apiKey";
+
+//       final response = await http.get(
+//         Uri.parse(apiUrl),
+//       );
+
+//       if (response.statusCode == 200) {
+//         List<dynamic> data = json.decode(response.body);
+//         return data.map((item) => Product.fromJson(item)).toList();
+//       } else if (response.statusCode == 403) {
+//         throw Exception("Invalid credentials: ${response.body}");
+//       } else if (response.statusCode == 404) {
+//         throw Exception("Endpoint not found: ${response.body}");
+//       } else {
+//         throw Exception(
+//             "Failed to load products: ${response.statusCode} - ${response.body}");
+//       }
+//     } catch (e) {
+//       print("Error during API call: $e");
+//       throw Exception("Failed to load products");
+//     }
+//   }
+
+//   // Manually encode a list of categories
+//   String encodeCategories(List<String> categories) {
+//     return json.encode(categories);
+//   }
+// }

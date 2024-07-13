@@ -1,0 +1,113 @@
+import 'package:flutter/material.dart';
+
+class CustomBottomNavigationBar extends StatelessWidget {
+  final int selectedIndex;
+  final Function(int) onItemTapped;
+
+  CustomBottomNavigationBar({
+    required this.selectedIndex,
+    required this.onItemTapped,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      left: 24,
+      right: 24,
+      bottom: 24,
+      child: Container(
+        height: 70,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: BottomNavigationBar(
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Stack(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(top: 15),
+                      child: CircleAvatar(
+                        radius: 18,
+                        backgroundColor: (selectedIndex == 0)
+                            ? Color(0xFFFF7F7D)
+                            : Colors.transparent,
+                        child: Image.asset(
+                          'assets/images/home-icon.png',
+                          width: 24,
+                          height: 24,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                label: '', // Set label to an empty string
+              ),
+              BottomNavigationBarItem(
+                icon: Stack(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(top: 15),
+                      child: CircleAvatar(
+                        radius: 18,
+                        backgroundColor: (selectedIndex == 1)
+                            ? Color(0xFFFF7F7D)
+                            : Colors.transparent,
+                        child: Image.asset(
+                          'assets/images/shopping-cart-icon.png',
+                          width: 24,
+                          height: 24,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                label: '', // Set label to an empty string
+              ),
+              BottomNavigationBarItem(
+                icon: Stack(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(top: 15),
+                      child: CircleAvatar(
+                        radius: 18,
+                        backgroundColor: (selectedIndex == 2)
+                            ? Color(0xFFFF7F7D)
+                            : Colors.transparent,
+                        child: Image.asset(
+                          'assets/images/checkout-icon.png',
+                          width: 24,
+                          height: 24,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                label: '', // Set label to an empty string
+              ),
+            ],
+            currentIndex: selectedIndex,
+            selectedItemColor: Colors.white, // Color for selected icon
+            unselectedItemColor: Colors.white, // Color for unselected icons
+            onTap: onItemTapped,
+            backgroundColor: Color(0xFF2A2A2A),
+            elevation: 8.0, // Add elevation to make it float
+            type: BottomNavigationBarType.fixed,
+            iconSize: 24,
+            selectedFontSize: 0,
+            selectedIconTheme: IconThemeData(
+              size: 24,
+              color: Colors.white,
+            ),
+            unselectedIconTheme: IconThemeData(
+              size: 24,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

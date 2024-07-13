@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../providers/cart_provider.dart';
 import '../providers/product_provider.dart';
 import '../models/product.dart';
+import '../widgets/custom_bottom_navigation_bar.dart';
 import '../widgets/star_rating.dart';
 import 'product_detail_screen.dart';
-import 'package:intl/intl.dart';
+import 'cart_screen.dart';
+// import 'package:intl/intl.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -13,79 +16,72 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0; // Index of the current selected bottom nav item
-  late PageController _controller; // Declare _controller as late
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = PageController(); // Initialize _controller in initState
-  }
+  int _selectedIndex = 0;
 
   // Define the screens corresponding to each bottom nav item
   static List<Widget> _screens(
           BuildContext context, PageController controller) =>
       <Widget>[
-        MainScreenBody(
-            controller: controller), // Pass controller to MainScreenBody
-        Placeholder(), // Replace with actual screen for orders
+        MainScreenBody(controller: controller),
+        CartScreen(),
         Placeholder(), // Replace with actual screen for profile
       ];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (index == 1) {
+      // Navigate to CartScreen
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => CartScreen()),
+      );
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.network(
-            'https://oracus.ng/img/logo-dark.png',
-            fit: BoxFit.contain,
+          padding: const EdgeInsets.only(left: 24.0),
+          child: SizedBox(
+            width: 200.0,
+            child: Image.asset(
+              'assets/images/logo.png',
+              fit: BoxFit.contain,
+            ),
           ),
         ),
         title: Text(
           'Product List',
-          style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
+          style: GoogleFonts.montserrat(
+            textStyle: TextStyle(
+              fontSize: 19.0,
+              fontWeight: FontWeight.w600,
+              height: 1.22,
+              color: Color(0xFF2A2A2A),
+            ),
           ),
         ),
         elevation: 0,
         centerTitle: true,
       ),
-      body: _screens(
-          context, _controller)[_selectedIndex], // Display the selected screen
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-            ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.shopping_bag,
-            ),
-            label: 'Orders',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-            ),
-            label: 'Profile',
+      body: Stack(
+        children: [
+          _screens(context, PageController())[
+              _selectedIndex], // Display the selected screen
+          CustomBottomNavigationBar(
+            selectedIndex: _selectedIndex,
+            onItemTapped: _onItemTapped,
           ),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.white,
-        onTap: _onItemTapped,
       ),
+// Display the selected screen
     );
   }
 }
@@ -135,7 +131,7 @@ class MainScreenBody extends StatelessWidget {
                           height: 250.0,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12.0),
-                            color: Colors.black.withOpacity(0.2),
+                            color: Colors.black.withOpacity(0.0),
                           ),
                         ),
                         // Text on top of the overlay
@@ -149,18 +145,27 @@ class MainScreenBody extends StatelessWidget {
                               children: [
                                 Text(
                                   'Premium Sound, Premium Savings',
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                                  style: GoogleFonts.montserrat(
+                                    textStyle: TextStyle(
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.w600,
+                                      height: 1.4,
+                                      color: Color(0xFFFAFAFA),
+                                      textBaseline: TextBaseline.alphabetic,
+                                    ),
                                   ),
+                                  textAlign: TextAlign.left,
                                 ),
                                 SizedBox(height: 4.0),
                                 Text(
                                   'Limited offer, hop on to get yours',
-                                  style: TextStyle(
-                                    fontSize: 12.0,
-                                    color: Colors.white,
+                                  style: GoogleFonts.montserrat(
+                                    textStyle: TextStyle(
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.w500,
+                                      height: 1.22,
+                                      color: Color(0xFFFAFAFA),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -169,6 +174,9 @@ class MainScreenBody extends StatelessWidget {
                         ),
                       ],
                     ),
+                  ),
+                  SizedBox(
+                    height: 36.0,
                   ),
 
                   // Tech Gadgets Section
@@ -184,7 +192,7 @@ class MainScreenBody extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 400.0, // Adjust height of carousel as needed
+                    height: 400,
                     child: PageView.builder(
                       controller: controller, // Use the provided controller
                       itemCount: (products.length / 2).ceil(),
@@ -195,77 +203,134 @@ class MainScreenBody extends StatelessWidget {
                                 i < (index * 2) + 2 && i < products.length;
                                 i++)
                               Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5.0),
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                                products[i].imageUrl),
-                                            fit: BoxFit.cover,
+                                child: InkWell(
+                                  onTap: () => {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ProductDetailScreen(
+                                                product: products[i]),
+                                      ),
+                                    ),
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                  products[i].imageUrl),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          height:
+                                              180.0, // Adjust image height as needed
+                                        ),
+                                        SizedBox(height: 8.0),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                products[i].name,
+                                                style: GoogleFonts.montserrat(
+                                                  textStyle: TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 12.0,
+                                                    height: 1.22,
+                                                    color: Color(0xFF2A2A2A),
+                                                  ),
+                                                ),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              SizedBox(height: 4.0),
+                                              Text(
+                                                products[i].description,
+                                                style: GoogleFonts.montserrat(
+                                                  textStyle: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 12.0,
+                                                    height: 1.22,
+                                                    color: Color(0xFF2A2A2A),
+                                                  ),
+                                                ),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              SizedBox(height: 4.0),
+                                              StarRating(
+                                                rating: 5,
+                                                starSize: 20.0,
+                                                starColor: Color(0xFFFFC657),
+                                              ),
+                                              SizedBox(height: 13.0),
+                                              Text(
+                                                '\₦${products[i].price.toStringAsFixed(2)}',
+                                                style: GoogleFonts.montserrat(
+                                                  textStyle: TextStyle(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 13.0,
+                                                    height: 1.22,
+                                                    color: Color(0xFFFF7F7D),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(height: 17.0),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  Provider.of<CartProvider>(
+                                                          context,
+                                                          listen: false)
+                                                      .addItem(products[i]);
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                          'Added to cart!'),
+                                                      duration:
+                                                          Duration(seconds: 2),
+                                                    ),
+                                                  );
+                                                },
+                                                style: OutlinedButton.styleFrom(
+                                                  backgroundColor: Colors.white,
+                                                  side: BorderSide(
+                                                      width: 1.0,
+                                                      color: Color(
+                                                          0xFFFF7F7D)), // Border
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            14.0), // Border radius
+                                                  ),
+                                                ),
+                                                child: Text(
+                                                  'Add to Cart',
+                                                  style: GoogleFonts.montserrat(
+                                                    textStyle: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 12.0,
+                                                      height: 1.22,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        height:
-                                            150.0, // Adjust image height as needed
-                                      ),
-                                      SizedBox(height: 8.0),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              products[i].name,
-                                              style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            SizedBox(height: 4.0),
-                                            Text(
-                                              products[i].description,
-                                              style: TextStyle(
-                                                fontSize: 14.0,
-                                                color: Colors.grey,
-                                              ),
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            SizedBox(height: 4.0),
-                                            StarRating(
-                                              rating: 5,
-                                              starSize: 20.0,
-                                              starColor: Colors.amber,
-                                            ),
-                                            SizedBox(height: 4.0),
-                                            Text(
-                                              '\₦${products[i].price.toStringAsFixed(2)}',
-                                              style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            SizedBox(height: 4.0),
-                                            ElevatedButton(
-                                              onPressed: () {
-                                                // Implement add to cart functionality
-                                              },
-                                              child: Text('Add to Cart'),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -289,129 +354,12 @@ class MainScreenBody extends StatelessWidget {
                       },
                     ),
                   ),
-
-                  // Product Grid Section
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.all(10.0),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10.0,
-                      mainAxisSpacing: 10.0,
-                      childAspectRatio: 0.7,
-                    ),
-                    itemCount: products.length,
-                    itemBuilder: (context, index) {
-                      final product = products[index];
-                      return Container(
-                        height: 300,
-                        child: ProductCard(
-                          product: product,
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    ProductDetailScreen(product: product),
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    },
-                  ),
                 ],
               ),
             ),
           );
         }
       },
-    );
-  }
-}
-
-class ProductCard extends StatelessWidget {
-  final Product product;
-  final VoidCallback onTap;
-
-  ProductCard({required this.product, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    final priceFormat = NumberFormat.currency(locale: 'en_NG', symbol: '₦');
-    String formattedPrice = priceFormat.format(product.price);
-
-    return Card(
-      elevation: 4.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: InkWell(
-        onTap: onTap,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Stack(
-              alignment: Alignment.topRight,
-              children: [
-                ClipRRect(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(10.0)),
-                  child: Image.network(
-                    product.imageUrl,
-                    height: 150.0,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(10.0),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                  decoration: BoxDecoration(
-                    color: Colors.black54,
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  child: Text(
-                    formattedPrice,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    product.name,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  SizedBox(height: 5.0),
-                  Text(
-                    product.description,
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.grey,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
@@ -438,13 +386,13 @@ class DotsIndicator extends AnimatedWidget {
           child: InkWell(
             onTap: () => onPageSelected(index),
             child: Container(
-              width: 8.0,
-              height: 8.0,
+              width: 12.0,
+              height: 12.0,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: (index == controller.page)
-                    ? Colors.deepPurple
-                    : Colors.grey,
+                    ? Color(0xFFFF7F7D)
+                    : Color(0xFFBBBBBB),
               ),
             ),
           ),

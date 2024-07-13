@@ -18,12 +18,12 @@ class ProductDetailScreen extends StatelessWidget {
         title: Text(
           product.name,
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Color.fromARGB(255, 134, 14, 177),
-        iconTheme: IconThemeData(color: Colors.white), // Change back icon color
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black), // Change back icon color
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
