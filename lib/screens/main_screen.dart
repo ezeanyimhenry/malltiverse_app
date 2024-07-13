@@ -415,7 +415,7 @@ class MainScreenBody extends StatelessWidget {
                                                 BorderRadius.circular(5.0),
                                             image: DecorationImage(
                                               image: NetworkImage(
-                                                  'products[i].imageUrl'),
+                                                  'https://api.timbu.cloud/images/oracus/product_men_s_2024_new_fashion_trend_sports_shoes_white_9b2c73_1_200x200.jpg'),
                                               fit: BoxFit.cover,
                                             ),
                                           ),
@@ -591,7 +591,7 @@ class MainScreenBody extends StatelessWidget {
                                                 BorderRadius.circular(5.0),
                                             image: DecorationImage(
                                               image: NetworkImage(
-                                                  'products[i].imageUrl'),
+                                                  'https://api.timbu.cloud/images/oracus/product_men_s_2024_new_fashion_trend_sports_shoes_white_9b2c73_1_200x200.jpg'),
                                               fit: BoxFit.cover,
                                             ),
                                           ),

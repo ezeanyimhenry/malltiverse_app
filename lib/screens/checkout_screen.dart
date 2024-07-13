@@ -25,8 +25,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<CartProvider>(context);
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
