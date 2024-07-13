@@ -28,6 +28,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        leadingWidth: 120,
         backgroundColor: Colors.white,
         leading: Padding(
           padding: const EdgeInsets.only(left: 24.0),
