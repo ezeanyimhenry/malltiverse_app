@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -43,7 +45,7 @@ class ApiService {
             "Failed to load categories: ${response.statusCode} - ${response.body}");
       }
     } catch (e) {
-      print("Error during API call: $e");
+      // print("Error during API call: $e");
       throw Exception("Failed to load categories");
     }
   }
@@ -72,15 +74,15 @@ class ApiService {
 
         if (items != null) {
           // Debugging: Check each item before parsing
-          items.forEach((item) {
-            // print('Processing item: $item');
-          });
+          // items.forEach((item) {
+          //   // print('Processing item: $item');
+          // });
           List<Product> products = items.map((item) {
             try {
               return Product.fromJson(item);
             } catch (e) {
-              print('Error parsing item: $item');
-              print('Error: $e');
+              // print('Error parsing item: $item');
+              // print('Error: $e');
               throw Exception("Failed to parse item: $item");
             }
           }).toList();
@@ -98,7 +100,7 @@ class ApiService {
             "Failed to load products: ${response.statusCode} - ${response.body}");
       }
     } catch (e) {
-      print("Error during API call: $e");
+      // print("Error during API call: $e");
       throw Exception("Failed to load products");
     }
   }
@@ -140,7 +142,7 @@ class ApiService {
             "Failed to load products: ${response.statusCode} - ${response.body}");
       }
     } catch (e) {
-      print("Error during API call: $e");
+      // print("Error during API call: $e");
       throw Exception("Failed to load products");
     }
   }

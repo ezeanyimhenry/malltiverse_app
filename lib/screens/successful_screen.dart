@@ -7,6 +7,8 @@ import 'main_screen.dart';
 import 'package:confetti/confetti.dart';
 
 class SuccessfulScreen extends StatefulWidget {
+  const SuccessfulScreen({super.key});
+
   @override
   State<SuccessfulScreen> createState() => _SuccessfulScreenState();
 }
@@ -54,7 +56,7 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
         children: [
           Center(
             child: Container(
-              margin: EdgeInsets.all(24),
+              margin: const EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -62,7 +64,7 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
                     child: Text(
                       'Payment Successful',
                       style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                           fontSize: 22.0,
                           fontWeight: FontWeight.w600,
                           height: 1.22,
@@ -71,19 +73,19 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 250,
                   ),
                   Column(children: [
                     Image.asset('assets/images/check.png'),
-                    SizedBox(
+                    const SizedBox(
                       height: 14,
                     ),
                     Center(
                       child: Text(
                         'Payment Successful',
                         style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.w600,
                             height: 1.22,
@@ -92,14 +94,14 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 13,
                     ),
                     Center(
                       child: Text(
                         'Thanks for your purchase',
                         style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                             fontSize: 14.0,
                             fontWeight: FontWeight.w400,
                             height: 1.22,
@@ -137,55 +139,26 @@ class _SuccessfulScreenState extends State<SuccessfulScreen> {
                 // Navigate to CartScreen
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MainScreen()),
+                  MaterialPageRoute(builder: (context) => const MainScreen()),
                 );
               } else if (index == 1) {
                 // Navigate to CartScreen
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CartScreen()),
+                  MaterialPageRoute(builder: (context) => const CartScreen()),
                 );
               } else if (index == 2) {
                 // Navigate to CheckoutScreen
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CheckoutScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const CheckoutScreen()),
                 );
               }
             },
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildShoppingSummaryRow(String label, String value) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          label,
-          style: GoogleFonts.montserrat(
-            textStyle: TextStyle(
-              fontSize: 12.0,
-              fontWeight: FontWeight.w500,
-              height: 1.22,
-              color: Color(0xFF2A2A2A).withOpacity(0.8),
-            ),
-          ),
-        ),
-        Text(
-          value,
-          style: GoogleFonts.montserrat(
-            textStyle: TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.w600,
-              height: 1.22,
-              color: Color(0xFF2A2A2A).withOpacity(0.8),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

@@ -5,7 +5,8 @@ class StarRating extends StatelessWidget {
   final double starSize;
   final Color starColor;
 
-  StarRating({
+  const StarRating({
+    super.key,
     required this.rating,
     this.starSize = 20.0,
     this.starColor = const Color(0xFFFFC657),

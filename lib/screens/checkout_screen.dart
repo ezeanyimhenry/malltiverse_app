@@ -8,6 +8,8 @@ import 'cart_screen.dart';
 import 'main_screen.dart';
 
 class CheckoutScreen extends StatefulWidget {
+  const CheckoutScreen({super.key});
+
   @override
   State<CheckoutScreen> createState() => _CheckoutScreenState();
 }
@@ -43,7 +45,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         title: Text(
           'Checkout',
           style: GoogleFonts.montserrat(
-            textStyle: TextStyle(
+            textStyle: const TextStyle(
               fontSize: 19.0,
               fontWeight: FontWeight.w600,
               height: 1.22,
@@ -67,7 +69,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     child: Text(
                       "No items to checkout",
                       style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 24.0,
                           height: 1.22, // Calculated as 14.63 / 12.0
@@ -78,14 +80,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 } else {
                   return SingleChildScrollView(
                     child: Container(
-                      margin: EdgeInsets.all(24),
+                      margin: const EdgeInsets.all(24),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
                             'Select how to receive your package(s)',
                             style: GoogleFonts.montserrat(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.w500,
                                 height: 1.22,
@@ -93,13 +95,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Text(
                             'Pickup',
                             style: GoogleFonts.montserrat(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 14.0,
                                 fontWeight: FontWeight.w500,
                                 height: 1.22,
@@ -107,13 +109,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 12,
                           ),
                           Row(
                             children: [
                               Radio<String>(
-                                activeColor: Color(0xFFFF7F7D),
+                                activeColor: const Color(0xFFFF7F7D),
                                 value:
                                     'Old Secretariat Complex, Area 1, Garki Abaji Abji',
                                 groupValue: _selectedPickup,
@@ -130,7 +132,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12.0,
                                     height: 1.22,
-                                    color: Color(0xFF2A2A2A).withOpacity(0.67),
+                                    color: const Color(0xFF2A2A2A)
+                                        .withOpacity(0.67),
                                   ),
                                 ),
                                 maxLines: 1,
@@ -138,11 +141,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           Row(
                             children: [
                               Radio<String>(
-                                activeColor: Color(0xFFFF7F7D),
+                                activeColor: const Color(0xFFFF7F7D),
                                 value:
                                     'Sokoto Street, Area 1, Garki Area 1 AMAC',
                                 groupValue: _selectedPickup,
@@ -159,7 +162,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12.0,
                                     height: 1.22,
-                                    color: Color(0xFF2A2A2A).withOpacity(0.67),
+                                    color: const Color(0xFF2A2A2A)
+                                        .withOpacity(0.67),
                                   ),
                                 ),
                                 maxLines: 1,
@@ -167,7 +171,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           Text(
                             'Delivery', // Your label text
                             style: GoogleFonts.montserrat(
@@ -175,25 +179,27 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 fontSize: 14.0,
                                 fontWeight: FontWeight.w500,
                                 height: 1.22,
-                                color: Color(0xFF2A2A2A).withOpacity(0.63),
+                                color:
+                                    const Color(0xFF2A2A2A).withOpacity(0.63),
                               ),
                             ),
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           TextField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(9.0),
                                 borderSide: BorderSide(
-                                  color: Color(0xFF2A2A2A).withOpacity(0.7),
+                                  color:
+                                      const Color(0xFF2A2A2A).withOpacity(0.7),
                                   width: 1.0,
                                 ),
                               ),
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                   vertical: 12.0, horizontal: 16.0),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
                           Text(
@@ -203,48 +209,51 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 fontSize: 14.0,
                                 fontWeight: FontWeight.w500,
                                 height: 1.22,
-                                color: Color(0xFF2A2A2A).withOpacity(0.63),
+                                color:
+                                    const Color(0xFF2A2A2A).withOpacity(0.63),
                               ),
                             ),
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           TextField(
                             decoration: InputDecoration(
                               hintText: 'phone nos 1',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(9.0),
                                 borderSide: BorderSide(
-                                  color: Color(0xFF2A2A2A).withOpacity(0.7),
+                                  color:
+                                      const Color(0xFF2A2A2A).withOpacity(0.7),
                                   width: 1.0,
                                 ),
                               ),
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                   vertical: 12.0, horizontal: 16.0),
                             ),
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           TextField(
                             decoration: InputDecoration(
                               hintText: 'phone nos 2',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(9.0),
                                 borderSide: BorderSide(
-                                  color: Color(0xFF2A2A2A).withOpacity(0.7),
+                                  color:
+                                      const Color(0xFF2A2A2A).withOpacity(0.7),
                                   width: 1.0,
                                 ),
                               ),
-                              contentPadding: EdgeInsets.symmetric(
+                              contentPadding: const EdgeInsets.symmetric(
                                   vertical: 12.0, horizontal: 16.0),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFFFF7F7D),
-                              foregroundColor: Color(0xFF2A2A2A),
-                              padding: EdgeInsets.symmetric(
+                              backgroundColor: const Color(0xFFFF7F7D),
+                              foregroundColor: const Color(0xFF2A2A2A),
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 16.0, horizontal: 16.0),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -255,13 +264,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => PaymentScreen()),
+                                    builder: (context) =>
+                                        const PaymentScreen()),
                               );
                             },
                             child: Text(
                               'Go to Payment',
                               style: GoogleFonts.montserrat(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                   fontSize: 12.0,
                                   fontWeight: FontWeight.w500,
                                   height: 1.22,
@@ -285,55 +295,26 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 // Navigate to CartScreen
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MainScreen()),
+                  MaterialPageRoute(builder: (context) => const MainScreen()),
                 );
               } else if (index == 1) {
                 // Navigate to CartScreen
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CartScreen()),
+                  MaterialPageRoute(builder: (context) => const CartScreen()),
                 );
               } else if (index == 2) {
                 // Navigate to CheckoutScreen
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CheckoutScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const CheckoutScreen()),
                 );
               }
             },
           )
         ],
       ),
-    );
-  }
-
-  Widget _buildShoppingSummaryRow(String label, String value) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          label,
-          style: GoogleFonts.montserrat(
-            textStyle: TextStyle(
-              fontSize: 12.0,
-              fontWeight: FontWeight.w500,
-              height: 1.22,
-              color: Color(0xFF2A2A2A).withOpacity(0.8),
-            ),
-          ),
-        ),
-        Text(
-          value,
-          style: GoogleFonts.montserrat(
-            textStyle: TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.w600,
-              height: 1.22,
-              color: Color(0xFF2A2A2A).withOpacity(0.8),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

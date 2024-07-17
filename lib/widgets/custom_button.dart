@@ -11,7 +11,8 @@ class CustomButton extends StatelessWidget {
   final double borderWidth;
   final ButtonStyle style;
 
-  CustomButton({
+  const CustomButton({
+    super.key,
     required this.text,
     required this.onPressed,
     required this.style,
@@ -32,7 +33,7 @@ class CustomButton extends StatelessWidget {
         child: Text(
           text,
           style: GoogleFonts.montserrat(
-            textStyle: TextStyle(
+            textStyle: const TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 12.0,
               height: 1.22, // Calculated as 14.63 / 12.0
@@ -57,7 +58,7 @@ class PrimaryButtonStyle {
 // Outlined Button Style
 class OutlinedButtonStyle {
   static final ButtonStyle style = OutlinedButton.styleFrom(
-    side: BorderSide(width: 1.0, color: Color(0xFFFF7F7D)), // Border
+    side: const BorderSide(width: 1.0, color: Color(0xFFFF7F7D)), // Border
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(14.0), // Border radius
     ),

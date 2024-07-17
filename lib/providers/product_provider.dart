@@ -8,7 +8,7 @@ class ProductProvider with ChangeNotifier {
   List<Category> _categories = [];
   bool _isLoading = false;
   String? _errorMessage;
-  List<Product> _cartItems = [];
+  final List<Product> _cartItems = [];
 
   List<Product> get products => _products;
   List<Category> get categories => _categories;

@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 class ProductDetailScreen extends StatelessWidget {
   final Product product;
 
-  ProductDetailScreen({required this.product});
+  const ProductDetailScreen({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +17,17 @@ class ProductDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           product.name,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black), // Change back icon color
+        iconTheme:
+            const IconThemeData(color: Colors.black), // Change back icon color
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -39,52 +40,53 @@ class ProductDetailScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             Text(
               product.name,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 22.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             Text(
               formattedPrice,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
                 color: Color.fromARGB(255, 134, 14, 177),
               ),
             ),
-            SizedBox(height: 20.0),
-            Text(
+            const SizedBox(height: 20.0),
+            const Text(
               'Description',
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             Text(
               product.description,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14.0,
                 height: 1.5,
               ),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: () {
                 // Implement add to cart functionality
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromARGB(255, 134, 14, 177),
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                backgroundColor: const Color.fromARGB(255, 134, 14, 177),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              child: Text(
+              child: const Text(
                 'Add to Cart',
                 style: TextStyle(
                   fontSize: 18.0,

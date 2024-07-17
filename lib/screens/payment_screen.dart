@@ -9,6 +9,8 @@ import 'main_screen.dart';
 import 'successful_screen.dart';
 
 class PaymentScreen extends StatelessWidget {
+  const PaymentScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     // final cart = Provider.of<CartProvider>(context);
@@ -35,7 +37,7 @@ class PaymentScreen extends StatelessWidget {
         title: Text(
           'Payment',
           style: GoogleFonts.montserrat(
-            textStyle: TextStyle(
+            textStyle: const TextStyle(
               fontSize: 19.0,
               fontWeight: FontWeight.w600,
               height: 1.22,
@@ -56,16 +58,16 @@ class PaymentScreen extends StatelessWidget {
               builder: (context, provider, child) {
                 return SingleChildScrollView(
                   child: Container(
-                    margin: EdgeInsets.all(24),
+                    margin: const EdgeInsets.all(24),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Image.asset('assets/images/Card.png'),
-                        SizedBox(height: 34),
+                        const SizedBox(height: 34),
                         Text(
                           'Card Number', // Your label text
                           style: GoogleFonts.montserrat(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               fontSize: 14.0,
                               fontWeight: FontWeight.w500,
                               height: 1.22,
@@ -73,22 +75,22 @@ class PaymentScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         TextField(
                           decoration: InputDecoration(
                             hintText: '0000 0000 0000 0000',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(9.0),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Color(0xFF979797),
                                 width: 1.0,
                               ),
                             ),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 vertical: 12.0, horizontal: 16.0),
                           ),
                         ),
-                        SizedBox(height: 24),
+                        const SizedBox(height: 24),
                         Row(
                           children: [
                             Expanded(
@@ -98,7 +100,7 @@ class PaymentScreen extends StatelessWidget {
                                   Text(
                                     'Expiry Date', // Your label text
                                     style: GoogleFonts.montserrat(
-                                      textStyle: TextStyle(
+                                      textStyle: const TextStyle(
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.w500,
                                         height: 1.22,
@@ -106,7 +108,7 @@ class PaymentScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
                                   TextField(
@@ -115,19 +117,20 @@ class PaymentScreen extends StatelessWidget {
                                       border: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(9.0),
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0xFF979797),
                                           width: 1.0,
                                         ),
                                       ),
-                                      contentPadding: EdgeInsets.symmetric(
-                                          vertical: 12.0, horizontal: 16.0),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              vertical: 12.0, horizontal: 16.0),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             Expanded(
@@ -137,7 +140,7 @@ class PaymentScreen extends StatelessWidget {
                                   Text(
                                     'CVV', // Your label text
                                     style: GoogleFonts.montserrat(
-                                      textStyle: TextStyle(
+                                      textStyle: const TextStyle(
                                         fontSize: 14.0,
                                         fontWeight: FontWeight.w500,
                                         height: 1.22,
@@ -145,7 +148,7 @@ class PaymentScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
                                   TextField(
@@ -154,13 +157,14 @@ class PaymentScreen extends StatelessWidget {
                                       border: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(9.0),
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Color(0xFF979797),
                                           width: 1.0,
                                         ),
                                       ),
-                                      contentPadding: EdgeInsets.symmetric(
-                                          vertical: 12.0, horizontal: 16.0),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              vertical: 12.0, horizontal: 16.0),
                                     ),
                                   ),
                                 ],
@@ -168,12 +172,12 @@ class PaymentScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        SizedBox(height: 63),
+                        const SizedBox(height: 63),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFFFF7F7D),
-                            foregroundColor: Color(0xFF2A2A2A),
-                            padding: EdgeInsets.symmetric(
+                            backgroundColor: const Color(0xFFFF7F7D),
+                            foregroundColor: const Color(0xFF2A2A2A),
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 16.0, horizontal: 16.0),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -184,13 +188,14 @@ class PaymentScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SuccessfulScreen()),
+                                  builder: (context) =>
+                                      const SuccessfulScreen()),
                             );
                           },
                           child: Text(
                             'Make Payment',
                             style: GoogleFonts.montserrat(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 12.0,
                                 fontWeight: FontWeight.w500,
                                 height: 1.22,
@@ -213,55 +218,26 @@ class PaymentScreen extends StatelessWidget {
                 // Navigate to CartScreen
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MainScreen()),
+                  MaterialPageRoute(builder: (context) => const MainScreen()),
                 );
               } else if (index == 1) {
                 // Navigate to CartScreen
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CartScreen()),
+                  MaterialPageRoute(builder: (context) => const CartScreen()),
                 );
               } else if (index == 2) {
                 // Navigate to CheckoutScreen
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CheckoutScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const CheckoutScreen()),
                 );
               }
             },
           )
         ],
       ),
-    );
-  }
-
-  Widget _buildShoppingSummaryRow(String label, String value) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          label,
-          style: GoogleFonts.montserrat(
-            textStyle: TextStyle(
-              fontSize: 12.0,
-              fontWeight: FontWeight.w500,
-              height: 1.22,
-              color: Color(0xFF2A2A2A).withOpacity(0.8),
-            ),
-          ),
-        ),
-        Text(
-          value,
-          style: GoogleFonts.montserrat(
-            textStyle: TextStyle(
-              fontSize: 14.0,
-              fontWeight: FontWeight.w600,
-              height: 1.22,
-              color: Color(0xFF2A2A2A).withOpacity(0.8),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

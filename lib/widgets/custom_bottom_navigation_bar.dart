@@ -4,7 +4,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
   final int selectedIndex;
   final Function(int) onItemTapped;
 
-  CustomBottomNavigationBar({
+  const CustomBottomNavigationBar({
+    super.key,
     required this.selectedIndex,
     required this.onItemTapped,
   });
@@ -23,11 +24,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
               icon: Stack(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 15),
+                    padding: const EdgeInsets.only(top: 15),
                     child: CircleAvatar(
                       radius: 18,
                       backgroundColor: (selectedIndex == 0)
-                          ? Color(0xFFFF7F7D)
+                          ? const Color(0xFFFF7F7D)
                           : Colors.transparent,
                       child: Image.asset(
                         'assets/images/home-icon.png',
@@ -45,11 +46,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
               icon: Stack(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 15),
+                    padding: const EdgeInsets.only(top: 15),
                     child: CircleAvatar(
                       radius: 18,
                       backgroundColor: (selectedIndex == 1)
-                          ? Color(0xFFFF7F7D)
+                          ? const Color(0xFFFF7F7D)
                           : Colors.transparent,
                       child: Image.asset(
                         'assets/images/shopping-cart-icon.png',
@@ -67,11 +68,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
               icon: Stack(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(top: 15),
+                    padding: const EdgeInsets.only(top: 15),
                     child: CircleAvatar(
                       radius: 18,
                       backgroundColor: (selectedIndex == 2)
-                          ? Color(0xFFFF7F7D)
+                          ? const Color(0xFFFF7F7D)
                           : Colors.transparent,
                       child: Image.asset(
                         'assets/images/checkout-icon.png',
@@ -90,16 +91,16 @@ class CustomBottomNavigationBar extends StatelessWidget {
           selectedItemColor: Colors.white, // Color for selected icon
           unselectedItemColor: Colors.white, // Color for unselected icons
           onTap: onItemTapped,
-          backgroundColor: Color(0xFF2A2A2A),
+          backgroundColor: const Color(0xFF2A2A2A),
           elevation: 8.0, // Add elevation to make it float
           type: BottomNavigationBarType.fixed,
           iconSize: 24,
           selectedFontSize: 0,
-          selectedIconTheme: IconThemeData(
+          selectedIconTheme: const IconThemeData(
             size: 24,
             color: Colors.white,
           ),
-          unselectedIconTheme: IconThemeData(
+          unselectedIconTheme: const IconThemeData(
             size: 24,
             color: Colors.white,
           ),

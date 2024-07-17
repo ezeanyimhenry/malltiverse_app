@@ -1,39 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 // Dots Indicator Widget for PageView
 class DotsIndicator extends AnimatedWidget {
   final PageController controller;
   final int itemCount;
-  final ValueChanged<int> onPageSelected;
 
-  DotsIndicator({
+  const DotsIndicator({
+    super.key,
     required this.controller,
     required this.itemCount,
-    required this.onPageSelected,
   }) : super(listenable: controller);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(itemCount, (index) {
-        return Padding(
-          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-          child: InkWell(
-            onTap: () => onPageSelected(index),
-            child: Container(
-              width: 12.0,
-              height: 12.0,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: (index == controller.page)
-                    ? Color(0xFFFF7F7D)
-                    : Color(0xFFBBBBBB),
-              ),
-            ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Center(
+        child: SmoothPageIndicator(
+          controller: controller,
+          count: itemCount,
+          effect: const WormEffect(
+            dotHeight: 12.0,
+            dotWidth: 12.0,
+            activeDotColor: Color(0xFFFF7F7D),
           ),
-        );
-      }),
+        ),
+      ),
     );
   }
 }

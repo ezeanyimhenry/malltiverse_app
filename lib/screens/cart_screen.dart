@@ -7,6 +7,8 @@ import 'checkout_screen.dart';
 import 'main_screen.dart';
 
 class CartScreen extends StatelessWidget {
+  const CartScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<CartProvider>(context);
@@ -29,7 +31,7 @@ class CartScreen extends StatelessWidget {
         title: Text(
           'Cart',
           style: GoogleFonts.montserrat(
-            textStyle: TextStyle(
+            textStyle: const TextStyle(
               fontSize: 19.0,
               fontWeight: FontWeight.w600,
               height: 1.22,
@@ -53,7 +55,7 @@ class CartScreen extends StatelessWidget {
                     child: Text(
                       "No items in cart",
                       style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 24.0,
                           height: 1.22, // Calculated as 14.63 / 12.0
@@ -71,18 +73,19 @@ class CartScreen extends StatelessWidget {
                           alignment: Alignment.topCenter,
                           child: ListView.builder(
                             shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             itemCount: cart.items.length,
                             itemBuilder: (ctx, i) {
                               final item = cart.items.values.toList()[i];
                               return Container(
-                                margin: EdgeInsets.symmetric(
+                                margin: const EdgeInsets.symmetric(
                                     vertical: 14, horizontal: 24),
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     vertical: 24, horizontal: 15),
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                      color: Color(0xFF2A2A2A).withOpacity(0.1),
+                                      color: const Color(0xFF2A2A2A)
+                                          .withOpacity(0.1),
                                       width: 1),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
@@ -102,7 +105,7 @@ class CartScreen extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: 10),
+                                    const SizedBox(width: 10),
                                     // Details in the middle
                                     Expanded(
                                       child: Column(
@@ -112,7 +115,7 @@ class CartScreen extends StatelessWidget {
                                           Text(
                                             item.product.name,
                                             style: GoogleFonts.montserrat(
-                                              textStyle: TextStyle(
+                                              textStyle: const TextStyle(
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 12.0,
                                                 height: 1.22,
@@ -121,11 +124,11 @@ class CartScreen extends StatelessWidget {
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                           ),
-                                          SizedBox(height: 4),
+                                          const SizedBox(height: 4),
                                           Text(
                                             item.product.description,
                                             style: GoogleFonts.montserrat(
-                                              textStyle: TextStyle(
+                                              textStyle: const TextStyle(
                                                 fontWeight: FontWeight.w400,
                                                 fontSize: 11.0,
                                                 height: 1.22,
@@ -134,7 +137,7 @@ class CartScreen extends StatelessWidget {
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                           ),
-                                          SizedBox(height: 15),
+                                          const SizedBox(height: 15),
                                           Row(
                                             children: [
                                               // Quantity counter with outlined buttons
@@ -143,7 +146,8 @@ class CartScreen extends StatelessWidget {
                                                 width: 20,
                                                 decoration: BoxDecoration(
                                                   border: Border.all(
-                                                      color: Color(0xFF2A2A2A)),
+                                                      color: const Color(
+                                                          0xFF2A2A2A)),
                                                   borderRadius:
                                                       BorderRadius.circular(1),
                                                 ),
@@ -151,24 +155,24 @@ class CartScreen extends StatelessWidget {
                                                   onTap: () {
                                                     // Implement decrease quantity functionality
                                                   },
-                                                  child: Padding(
+                                                  child: const Padding(
                                                     padding:
-                                                        const EdgeInsets.all(
-                                                            2.0),
+                                                        EdgeInsets.all(2.0),
                                                     child: Icon(Icons.remove,
                                                         size: 15),
                                                   ),
                                                 ),
                                               ),
-                                              SizedBox(width: 8),
+                                              const SizedBox(width: 8),
                                               Text(item.quantity.toString()),
-                                              SizedBox(width: 8),
+                                              const SizedBox(width: 8),
                                               Container(
                                                 height: 20,
                                                 width: 20,
                                                 decoration: BoxDecoration(
                                                   border: Border.all(
-                                                      color: Color(0xFF2A2A2A)),
+                                                      color: const Color(
+                                                          0xFF2A2A2A)),
                                                   borderRadius:
                                                       BorderRadius.circular(1),
                                                 ),
@@ -176,10 +180,9 @@ class CartScreen extends StatelessWidget {
                                                   onTap: () {
                                                     // Implement increase quantity functionality
                                                   },
-                                                  child: Padding(
+                                                  child: const Padding(
                                                     padding:
-                                                        const EdgeInsets.all(
-                                                            2.0),
+                                                        EdgeInsets.all(2.0),
                                                     child: Icon(Icons.add,
                                                         size: 15),
                                                   ),
@@ -206,11 +209,11 @@ class CartScreen extends StatelessWidget {
                                             height: 24,
                                           ),
                                         ),
-                                        SizedBox(height: 40),
+                                        const SizedBox(height: 40),
                                         Text(
-                                          '\₦${item.product.price.toStringAsFixed(2)}',
+                                          '₦${item.product.price.toStringAsFixed(2)}',
                                           style: GoogleFonts.montserrat(
-                                            textStyle: TextStyle(
+                                            textStyle: const TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 14.0,
                                               height: 1.22,
@@ -225,14 +228,14 @@ class CartScreen extends StatelessWidget {
                             },
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Container(
-                          margin: EdgeInsets.symmetric(horizontal: 24),
-                          padding: EdgeInsets.all(16),
+                          margin: const EdgeInsets.symmetric(horizontal: 24),
+                          padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            color: Color(0xFFEDEDED),
-                            border:
-                                Border.all(color: Color(0xFFFFC657), width: 1),
+                            color: const Color(0xFFEDEDED),
+                            border: Border.all(
+                                color: const Color(0xFFFFC657), width: 1),
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: Column(
@@ -241,7 +244,7 @@ class CartScreen extends StatelessWidget {
                               Text(
                                 'Shopping Summary', // Your label text
                                 style: GoogleFonts.montserrat(
-                                  textStyle: TextStyle(
+                                  textStyle: const TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.w600,
                                     height: 1.22,
@@ -249,7 +252,7 @@ class CartScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 24,
                               ),
                               Row(
@@ -267,25 +270,25 @@ class CartScreen extends StatelessWidget {
                                               fontSize: 14.0,
                                               fontWeight: FontWeight.w500,
                                               height: 1.22,
-                                              color: Color(0xFF2A2A2A)
+                                              color: const Color(0xFF2A2A2A)
                                                   .withOpacity(0.63),
                                             ),
                                           ),
                                         ),
-                                        SizedBox(height: 8),
+                                        const SizedBox(height: 8),
                                         TextField(
                                           decoration: InputDecoration(
                                             border: OutlineInputBorder(
                                               borderRadius:
                                                   BorderRadius.circular(9.0),
                                               borderSide: BorderSide(
-                                                color: Color(0xFF2A2A2A)
+                                                color: const Color(0xFF2A2A2A)
                                                     .withOpacity(0.7),
                                                 width: 1.0,
                                               ),
                                             ),
                                             contentPadding:
-                                                EdgeInsets.symmetric(
+                                                const EdgeInsets.symmetric(
                                                     vertical: 12.0,
                                                     horizontal: 16.0),
                                           ),
@@ -293,12 +296,12 @@ class CartScreen extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(width: 10),
+                                  const SizedBox(width: 10),
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Color(0xFFFF7F7D),
-                                      foregroundColor: Color(0xFF2A2A2A),
-                                      padding: EdgeInsets.symmetric(
+                                      backgroundColor: const Color(0xFFFF7F7D),
+                                      foregroundColor: const Color(0xFF2A2A2A),
+                                      padding: const EdgeInsets.symmetric(
                                           vertical: 16.0, horizontal: 16.0),
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
@@ -311,7 +314,7 @@ class CartScreen extends StatelessWidget {
                                     child: Text(
                                       'Apply',
                                       style: GoogleFonts.montserrat(
-                                        textStyle: TextStyle(
+                                        textStyle: const TextStyle(
                                           fontSize: 12.0,
                                           fontWeight: FontWeight.w500,
                                           height: 1.22,
@@ -322,26 +325,27 @@ class CartScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 40),
+                              const SizedBox(height: 40),
                               _buildShoppingSummaryRow('Subtotal', '2000'),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               _buildShoppingSummaryRow('Delivery Fee',
-                                  '\₦0.00'), // Replace with actual delivery fee calculation
-                              SizedBox(height: 10),
+                                  '₦0.00'), // Replace with actual delivery fee calculation
+                              const SizedBox(height: 10),
                               _buildShoppingSummaryRow('Discount Amount',
-                                  '-\₦0.00'), // Replace with actual discount amount calculation
-                              SizedBox(height: 24),
+                                  '-₦0.00'), // Replace with actual discount amount calculation
+                              const SizedBox(height: 24),
                               Divider(
                                   height: 1,
-                                  color: Color(0xFF2A2A2A).withOpacity(0.5)),
-                              SizedBox(height: 24),
+                                  color:
+                                      const Color(0xFF2A2A2A).withOpacity(0.5)),
+                              const SizedBox(height: 24),
                               _buildShoppingSummaryRow('Total Amount', '3000'),
-                              SizedBox(height: 24),
+                              const SizedBox(height: 24),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFFFF7F7D),
-                                  foregroundColor: Color(0xFF2A2A2A),
-                                  padding: EdgeInsets.symmetric(
+                                  backgroundColor: const Color(0xFFFF7F7D),
+                                  foregroundColor: const Color(0xFF2A2A2A),
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 16.0, horizontal: 16.0),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0),
@@ -351,13 +355,14 @@ class CartScreen extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => CheckoutScreen()),
+                                        builder: (context) =>
+                                            const CheckoutScreen()),
                                   );
                                 },
                                 child: Text(
                                   'Checkout',
                                   style: GoogleFonts.montserrat(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.w500,
                                       height: 1.22,
@@ -383,19 +388,20 @@ class CartScreen extends StatelessWidget {
                 // Navigate to CartScreen
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MainScreen()),
+                  MaterialPageRoute(builder: (context) => const MainScreen()),
                 );
               } else if (index == 1) {
                 // Navigate to CartScreen
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CartScreen()),
+                  MaterialPageRoute(builder: (context) => const CartScreen()),
                 );
               } else if (index == 2) {
                 // Navigate to CheckoutScreen
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CheckoutScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const CheckoutScreen()),
                 );
               }
             },
@@ -416,7 +422,7 @@ class CartScreen extends StatelessWidget {
               fontSize: 12.0,
               fontWeight: FontWeight.w500,
               height: 1.22,
-              color: Color(0xFF2A2A2A).withOpacity(0.8),
+              color: const Color(0xFF2A2A2A).withOpacity(0.8),
             ),
           ),
         ),
@@ -427,7 +433,7 @@ class CartScreen extends StatelessWidget {
               fontSize: 14.0,
               fontWeight: FontWeight.w600,
               height: 1.22,
-              color: Color(0xFF2A2A2A).withOpacity(0.8),
+              color: const Color(0xFF2A2A2A).withOpacity(0.8),
             ),
           ),
         ),
