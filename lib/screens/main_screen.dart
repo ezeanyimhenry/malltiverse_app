@@ -27,16 +27,19 @@ class MainScreenState extends State<MainScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       try {
-        await Provider.of<ProductProvider>(context, listen: false)
-            .fetchCategories();
-        await Provider.of<ProductProvider>(context, listen: false)
-            .fetchProducts();
+        var productProvider =
+            Provider.of<ProductProvider>(context, listen: false);
+        await productProvider.fetchCategories();
+        await productProvider.fetchProducts();
       } catch (error) {
+        // Handle error as needed
         // print('Error fetching data: $error');
       } finally {
-        setState(() {
-          _isLoading = false;
-        });
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
       }
     });
   }
