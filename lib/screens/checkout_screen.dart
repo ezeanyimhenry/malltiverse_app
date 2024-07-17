@@ -278,7 +278,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               },
             ),
           ),
-          // Bottom Navigation Bar
           CustomBottomNavigationBar(
             selectedIndex: 2,
             onItemTapped: (index) {
@@ -302,7 +301,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 );
               }
             },
-          ),
+          )
         ],
       ),
     );

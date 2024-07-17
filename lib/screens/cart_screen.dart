@@ -376,7 +376,6 @@ class CartScreen extends StatelessWidget {
               },
             ),
           ),
-          // Bottom Navigation Bar
           CustomBottomNavigationBar(
             selectedIndex: 1,
             onItemTapped: (index) {
@@ -400,7 +399,7 @@ class CartScreen extends StatelessWidget {
                 );
               }
             },
-          ),
+          )
         ],
       ),
     );

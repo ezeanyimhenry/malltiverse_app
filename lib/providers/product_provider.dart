@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import '../models/product.dart';
+import '../models/category.dart';
 import '../services/api_service.dart';
 
 class ProductProvider with ChangeNotifier {
   List<Product> _products = [];
+  List<Category> _categories = [];
   bool _isLoading = false;
   String? _errorMessage;
   List<Product> _cartItems = [];
 
   List<Product> get products => _products;
+  List<Category> get categories => _categories;
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
   List<Product> get cartItems => _cartItems;
@@ -24,23 +27,44 @@ class ProductProvider with ChangeNotifier {
       _errorMessage = error.toString();
     } finally {
       _isLoading = false;
-      notifyListeners();
+      await Future.microtask(() {
+        notifyListeners(); // Notify listeners after state changes
+      });
     }
   }
 
-  Future<void> fetchProductsByCategory(String category) async {
+  Future<void> fetchCategories() async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      _products =
-          await ApiService().fetchProductsByCategory(category: category);
+      _categories = await ApiService().fetchCategories();
       _errorMessage = null;
     } catch (error) {
       _errorMessage = error.toString();
     } finally {
       _isLoading = false;
-      notifyListeners();
+      await Future.microtask(() {
+        notifyListeners(); // Notify listeners after state changes
+      });
+    }
+  }
+
+  Future<void> fetchProductsByCategory(String category) async {
+    _isLoading = true;
+    notifyListeners(); // Notify listeners that loading has started
+
+    try {
+      _products =
+          await ApiService().fetchProductsByCategory(categoryId: category);
+      _errorMessage = null; // Reset error message if successful
+    } catch (error) {
+      _errorMessage = error.toString(); // Capture error message
+    } finally {
+      _isLoading = false; // Mark loading as complete
+      await Future.microtask(() {
+        notifyListeners(); // Notify listeners after state changes
+      });
     }
   }
 
@@ -54,66 +78,3 @@ class ProductProvider with ChangeNotifier {
     notifyListeners();
   }
 }
-
-
-// import 'package:flutter/material.dart';
-// import '../models/product.dart';
-// import '../services/api_service.dart';
-
-// class ProductProvider with ChangeNotifier {
-//   List<Product> _products = [];
-//   List<String> _categories = [];
-//   bool _isLoading = false;
-//   String? _errorMessage;
-
-//   List<Product> get products => _products;
-//   List<String> get categories => _categories;
-//   bool get isLoading => _isLoading;
-//   String? get errorMessage => _errorMessage;
-
-//   Future<void> fetchCategories() async {
-//     _isLoading = true;
-//     notifyListeners();
-
-//     try {
-//       _categories = await ApiService().fetchCategories();
-//       _errorMessage = null;
-//     } catch (error) {
-//       _errorMessage = error.toString();
-//     } finally {
-//       _isLoading = false;
-//       notifyListeners();
-//     }
-//   }
-
-//   Future<void> fetchProductsByCategory(String category) async {
-//     _isLoading = true;
-//     notifyListeners();
-
-//     try {
-//       _products = await ApiService().fetchProductsByCategory(category);
-//       _errorMessage = null;
-//     } catch (error) {
-//       _errorMessage = error.toString();
-//     } finally {
-//       _isLoading = false;
-//       notifyListeners();
-//     }
-//   }
-
-//   // Fetch products without category
-//   Future<void> fetchUncategorizedProducts() async {
-//     _isLoading = true;
-//     notifyListeners();
-
-//     try {
-//       _products = await ApiService().fetchProductsByCategory('');
-//       _errorMessage = null;
-//     } catch (error) {
-//       _errorMessage = error.toString();
-//     } finally {
-//       _isLoading = false;
-//       notifyListeners();
-//     }
-//   }
-// }

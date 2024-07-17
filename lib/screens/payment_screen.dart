@@ -11,7 +11,7 @@ import 'successful_screen.dart';
 class PaymentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<CartProvider>(context);
+    // final cart = Provider.of<CartProvider>(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -206,7 +206,6 @@ class PaymentScreen extends StatelessWidget {
               },
             ),
           ),
-          // Bottom Navigation Bar
           CustomBottomNavigationBar(
             selectedIndex: 2,
             onItemTapped: (index) {
@@ -230,7 +229,7 @@ class PaymentScreen extends StatelessWidget {
                 );
               }
             },
-          ),
+          )
         ],
       ),
     );
