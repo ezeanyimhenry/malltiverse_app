@@ -178,6 +178,9 @@ class MainScreenState extends State<MainScreen> {
                             return CategorySlider(category: category);
                           },
                         ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.1,
+                        ),
                       ],
                     ),
                   );
@@ -236,11 +239,21 @@ class _CategorySliderState extends State<CategorySlider> {
   }
 
   Future<void> _fetchProducts() async {
-    final productProvider =
-        Provider.of<ProductProvider>(context, listen: false);
-    await productProvider.fetchProductsByCategory(widget.category.id);
-    setState(() {
-      _productsFetched = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      try {
+        final productProvider =
+            Provider.of<ProductProvider>(context, listen: false);
+        await productProvider.fetchProductsByCategory(widget.category.id);
+      } catch (error) {
+        // Handle error as needed
+        // print('Error fetching data: $error');
+      } finally {
+        if (mounted) {
+          setState(() {
+            _productsFetched = true;
+          });
+        }
+      }
     });
   }
 

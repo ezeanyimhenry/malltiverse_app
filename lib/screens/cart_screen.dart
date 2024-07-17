@@ -154,6 +154,8 @@ class CartScreen extends StatelessWidget {
                                                 child: InkWell(
                                                   onTap: () {
                                                     // Implement decrease quantity functionality
+                                                    cart.decreaseQuantity(
+                                                        item.product.id);
                                                   },
                                                   child: const Padding(
                                                     padding:
@@ -179,6 +181,9 @@ class CartScreen extends StatelessWidget {
                                                 child: InkWell(
                                                   onTap: () {
                                                     // Implement increase quantity functionality
+                                                    // cart.addItem(item.product);
+                                                    cart.increaseQuantity(
+                                                        item.product.id);
                                                   },
                                                   child: const Padding(
                                                     padding:
@@ -326,7 +331,8 @@ class CartScreen extends StatelessWidget {
                                 ],
                               ),
                               const SizedBox(height: 40),
-                              _buildShoppingSummaryRow('Subtotal', '2000'),
+                              _buildShoppingSummaryRow('Subtotal',
+                                  '₦${cart.totalAmount.toStringAsFixed(2)}'),
                               const SizedBox(height: 10),
                               _buildShoppingSummaryRow('Delivery Fee',
                                   '₦0.00'), // Replace with actual delivery fee calculation
@@ -339,7 +345,8 @@ class CartScreen extends StatelessWidget {
                                   color:
                                       const Color(0xFF2A2A2A).withOpacity(0.5)),
                               const SizedBox(height: 24),
-                              _buildShoppingSummaryRow('Total Amount', '3000'),
+                              _buildShoppingSummaryRow('Total Amount',
+                                  '₦${cart.totalAmount.toStringAsFixed(2)}'),
                               const SizedBox(height: 24),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
@@ -373,6 +380,9 @@ class CartScreen extends StatelessWidget {
                               ),
                             ],
                           ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.1,
                         ),
                       ],
                     ),
