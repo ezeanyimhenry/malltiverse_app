@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart_provider.dart';
@@ -77,6 +78,10 @@ class PaymentScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
                         TextField(
+                          inputFormatters: [
+                            FilteringTextInputFormatter
+                                .digitsOnly, // Only numbers can be entered
+                          ],
                           decoration: InputDecoration(
                             hintText: '0000 0000 0000 0000',
                             border: OutlineInputBorder(
@@ -112,6 +117,10 @@ class PaymentScreen extends StatelessWidget {
                                     height: 10,
                                   ),
                                   TextField(
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter
+                                          .digitsOnly, // Only numbers can be entered
+                                    ],
                                     decoration: InputDecoration(
                                       hintText: 'MM/YY',
                                       border: OutlineInputBorder(
@@ -152,6 +161,11 @@ class PaymentScreen extends StatelessWidget {
                                     height: 10,
                                   ),
                                   TextField(
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter
+                                          .digitsOnly, // Only numbers can be entered
+                                    ],
+                                    maxLength: 3,
                                     decoration: InputDecoration(
                                       hintText: '123',
                                       border: OutlineInputBorder(
