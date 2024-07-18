@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hng_shopping_app_task/screens/payment_screen.dart';
 import 'package:provider/provider.dart';
@@ -216,6 +217,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           ),
                           const SizedBox(height: 8),
                           TextField(
+                            keyboardType: TextInputType.phone,
+                            inputFormatters: [
+                              FilteringTextInputFormatter
+                                  .digitsOnly, // Only numbers can be entered
+                            ],
+                            maxLength: 11,
                             decoration: InputDecoration(
                               hintText: 'phone nos 1',
                               border: OutlineInputBorder(
@@ -232,6 +239,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           ),
                           const SizedBox(height: 8),
                           TextField(
+                            keyboardType: TextInputType.phone,
+                            inputFormatters: [
+                              FilteringTextInputFormatter
+                                  .digitsOnly, // Only numbers can be entered
+                            ],
+                            maxLength: 11,
                             decoration: InputDecoration(
                               hintText: 'phone nos 2',
                               border: OutlineInputBorder(
