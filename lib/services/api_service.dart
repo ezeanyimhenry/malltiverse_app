@@ -13,79 +13,42 @@ class ApiService {
   final String organizationId = dotenv.env['TIMBU_ORGANIZATION_ID'] ?? '';
 
   Future<List<Category>> fetchCategories() async {
-    String jsonItems = '''
-  [
-    {
-      "id": "43ab9137faa843178c5bcb51fc88c903",
-      "name": "women's fashion"
-    },
-    {
-      "id": "726c61299381465980dbfddb3446f4b2",
-      "name": "gadgets"
-    },
-    {
-      "id": "b396b5718b004a5e801f7e1c776293bd",
-      "name": "wrist watches"
-    },
-    {
-      "id": "de0ab5a6ee254e5a99d8297398627677",
-      "name": "tech gadgets"
-    },
-    {
-      "id": "edf9e0bc6a834f46b5f14fd148bf85e7",
-      "name": "men's fashion"
+    if (apiKey.isEmpty || appId.isEmpty || organizationId.isEmpty) {
+      throw Exception("API Key, App ID, or Organization ID is not set");
     }
-  ]
-  ''';
 
-    // Parse JSON items
-    List<dynamic> items = json.decode(jsonItems);
-    List<Category> categories =
-        items.map((item) => Category.fromJson(item)).toList();
-    // print(categories);
-    // for (var category in categories) {
-    //   print(category.name);
-    // }
-    return categories;
+    try {
+      final response = await http.get(
+        Uri.parse(
+          "$apiUrl/categories?organization_id=$organizationId&Appid=$appId&Apikey=$apiKey",
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonResponse = json.decode(response.body);
+        List<dynamic> items = jsonResponse['items'];
+
+        if (items != null) {
+          List<Category> categories =
+              items.map((item) => Category.fromJson(item)).toList();
+          // print(categories);
+          return categories;
+        } else {
+          throw Exception("API returned null response");
+        }
+      } else if (response.statusCode == 403) {
+        throw Exception("Invalid credentials: ${response.body}");
+      } else if (response.statusCode == 404) {
+        throw Exception("Endpoint not found: ${response.body}");
+      } else {
+        throw Exception(
+            "Failed to load categories: ${response.statusCode} - ${response.body}");
+      }
+    } catch (e) {
+      // print("Error during API call: $e");
+      throw Exception("Failed to load categories");
+    }
   }
-
-  // Future<List<Category>> fetchCategories() async {
-  //   if (apiKey.isEmpty || appId.isEmpty || organizationId.isEmpty) {
-  //     throw Exception("API Key, App ID, or Organization ID is not set");
-  //   }
-
-  //   try {
-  //     final response = await http.get(
-  //       Uri.parse(
-  //         "$apiUrl/categories?organization_id=$organizationId&Appid=$appId&Apikey=$apiKey",
-  //       ),
-  //     );
-
-  //     if (response.statusCode == 200) {
-  //       Map<String, dynamic> jsonResponse = json.decode(response.body);
-  //       List<dynamic> items = jsonResponse['items'];
-
-  //       if (items != null) {
-  //         List<Category> categories =
-  //             items.map((item) => Category.fromJson(item)).toList();
-  //         // print(categories);
-  //         return categories;
-  //       } else {
-  //         throw Exception("API returned null response");
-  //       }
-  //     } else if (response.statusCode == 403) {
-  //       throw Exception("Invalid credentials: ${response.body}");
-  //     } else if (response.statusCode == 404) {
-  //       throw Exception("Endpoint not found: ${response.body}");
-  //     } else {
-  //       throw Exception(
-  //           "Failed to load categories: ${response.statusCode} - ${response.body}");
-  //     }
-  //   } catch (e) {
-  //     // print("Error during API call: $e");
-  //     throw Exception("Failed to load categories");
-  //   }
-  // }
 
   Future<List<Product>> fetchProducts({
     int page = 1,
