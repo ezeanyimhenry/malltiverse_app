@@ -6,6 +6,7 @@ import '../services/api_service.dart';
 class ProductProvider with ChangeNotifier {
   List<Product> _products = [];
   List<Category> _categories = [];
+  List<Product> filteredCategory = [];
   bool _isLoading = false;
   String? _errorMessage;
   final List<Product> _cartItems = [];
@@ -33,12 +34,29 @@ class ProductProvider with ChangeNotifier {
     }
   }
 
+  List<Product> filterProductsByCategory(String categoryName) {
+    List<Product> filteredCategory = _products.where((product) {
+      return product.categories
+          .any((category) => category.name == categoryName);
+    }).toList();
+    // print("Filtering products by category: $filteredCategory");
+    return filteredCategory;
+  }
+
+  List<Product> getCategoryProducts(categoryName) {
+    return filterProductsByCategory(categoryName);
+  }
+
   Future<void> fetchCategories() async {
     _isLoading = true;
     notifyListeners();
 
     try {
       _categories = await ApiService().fetchCategories();
+
+      // for (var category in _categories) {
+      //   print(category.name);
+      // }
       _errorMessage = null;
     } catch (error) {
       _errorMessage = error.toString();

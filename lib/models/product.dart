@@ -1,3 +1,5 @@
+import 'category.dart';
+
 class Product {
   final String id;
   final String name;
@@ -7,7 +9,7 @@ class Product {
   final double price;
   final String imageUrl;
   final int rating;
-  final List<dynamic> categories;
+  final List<Category> categories;
 
   Product({
     required this.id,
@@ -22,7 +24,10 @@ class Product {
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
-    List<dynamic> categories = json['categories'] ?? [];
+    var categoryList = json['categories'] as List;
+    List<Category> categories =
+        categoryList.map((i) => Category.fromJson(i)).toList();
+
     String imageUrl = '';
     if (json['photos'] != null && json['photos'].isNotEmpty) {
       imageUrl = json['photos'][0]['url'];

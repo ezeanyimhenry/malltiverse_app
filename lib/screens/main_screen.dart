@@ -9,6 +9,7 @@ import '../widgets/dot_indicator.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
 import '../widgets/star_rating.dart';
 import 'checkout_screen.dart';
+import 'order_history_screen.dart';
 import 'product_detail_screen.dart';
 import 'cart_screen.dart';
 
@@ -72,6 +73,21 @@ class MainScreenState extends State<MainScreen> {
             ),
           ),
         ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.history,
+              color: Colors.black,
+              size: 24.0,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => OrderHistoryScreen()),
+              );
+            },
+          ),
+        ],
         elevation: 0,
         centerTitle: true,
       ),
@@ -86,18 +102,13 @@ class MainScreenState extends State<MainScreen> {
                   return Center(
                       child: Text('Error: ${productProvider.errorMessage}'));
                 } else {
-                  // final categoriesWithProducts = productProvider.categories
-                  //     .where((category) => productProvider.products.any(
-                  //         (product) => product.categories.contains(category.id)))
-                  //     .toList();
-
                   final categoriesWithProducts = productProvider.categories;
 
-                  // print('Categories with products: $categoriesWithProducts');
                   if (categoriesWithProducts.isEmpty) {
                     return const Center(
                         child: Text('No categories with products.'));
                   }
+
                   return Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -175,6 +186,8 @@ class MainScreenState extends State<MainScreen> {
                           itemCount: categoriesWithProducts.length,
                           itemBuilder: (context, index) {
                             final category = categoriesWithProducts[index];
+
+                            // print(category.name);
                             return CategorySlider(category: category);
                           },
                         ),
@@ -192,7 +205,7 @@ class MainScreenState extends State<MainScreen> {
             selectedIndex: 0,
             onItemTapped: (index) {
               if (index == 0) {
-                // Navigate to CartScreen
+                // Navigate to MainScreen
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const MainScreen()),
@@ -230,27 +243,22 @@ class CategorySlider extends StatefulWidget {
 
 class _CategorySliderState extends State<CategorySlider> {
   final PageController _pageController = PageController();
-  bool _productsFetched = false;
+  bool _isFetched = false;
 
   @override
   void initState() {
     super.initState();
-    _fetchProducts();
-  }
-
-  Future<void> _fetchProducts() async {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       try {
-        final productProvider =
+        var productProvider =
             Provider.of<ProductProvider>(context, listen: false);
-        await productProvider.fetchProductsByCategory(widget.category.id);
+        await productProvider.fetchProducts();
       } catch (error) {
         // Handle error as needed
-        // print('Error fetching data: $error');
       } finally {
         if (mounted) {
           setState(() {
-            _productsFetched = true;
+            _isFetched = true;
           });
         }
       }
@@ -259,54 +267,82 @@ class _CategorySliderState extends State<CategorySlider> {
 
   @override
   Widget build(BuildContext context) {
-    final productProvider =
-        Provider.of<ProductProvider>(context, listen: false);
-    // final productsInCategory = productProvider.products
-    //     .where((product) => product.categories.contains(widget.category.id))
-    //     .toList();
-    final productsInCategory = productProvider.products;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            widget.category.name,
-            style: GoogleFonts.montserrat(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
+    return Consumer<ProductProvider>(builder: (context, productProvider, _) {
+      final products =
+          productProvider.getCategoryProducts(widget.category.name);
+      if (!_isFetched) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                widget.category.name,
+                style: GoogleFonts.montserrat(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-          ),
-        ),
-        if (!_productsFetched)
-          const Center(child: CircularProgressIndicator())
-        else if (productsInCategory.isEmpty)
-          const Center(child: Text('No Products in this Category'))
-        else
-          SizedBox(
-            height: 400,
-            child: PageView.builder(
+            SizedBox(
+              height: 400,
+              child: ListView.builder(
+                itemCount: 5, // Number of placeholders you want to show
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: double.infinity,
+                      height: 100.0,
+                      color: Colors.grey.shade300, // Placeholder color
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        );
+      } else if (products.isEmpty) {
+        return const Center(child: Text('No Products in this Category'));
+      } else {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                widget.category.name,
+                style: GoogleFonts.montserrat(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 400,
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: (products.length / 2).ceil(),
+                itemBuilder: (context, index) {
+                  return Row(
+                    children: [
+                      for (int i = index * 2;
+                          i < (index * 2) + 2 && i < products.length;
+                          i++)
+                        ProductCard(product: products[i]),
+                    ],
+                  );
+                },
+              ),
+            ),
+            DotsIndicator(
               controller: _pageController,
-              itemCount: (productsInCategory.length / 2).ceil(),
-              itemBuilder: (context, index) {
-                // final product = productsInCategory[index];
-                return Row(
-                  children: [
-                    for (int i = index * 2;
-                        i < (index * 2) + 2 && i < productsInCategory.length;
-                        i++)
-                      ProductCard(product: productsInCategory[i]),
-                  ],
-                );
-              },
+              itemCount: (products.length / 2).ceil(),
             ),
-          ),
-        DotsIndicator(
-            controller: _pageController,
-            itemCount: (productsInCategory.length / 2).ceil()),
-      ],
-    );
+          ],
+        );
+      }
+    });
   }
 }
 
