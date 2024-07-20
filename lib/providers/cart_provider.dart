@@ -27,13 +27,14 @@ class CartProvider with ChangeNotifier {
         (existingItem) => CartItem(
           product: existingItem.product,
           quantity: existingItem.quantity + 1,
+          price: existingItem.price,
         ),
       );
     } else {
       // add item to cart
       _items.putIfAbsent(
         product.id,
-        () => CartItem(product: product),
+        () => CartItem(product: product, price: product.price),
       );
     }
     notifyListeners();
@@ -55,6 +56,7 @@ class CartProvider with ChangeNotifier {
         (existingCartItem) => CartItem(
           product: existingCartItem.product,
           quantity: existingCartItem.quantity - 1,
+          price: existingCartItem.price,
         ),
       );
     } else {
@@ -73,6 +75,7 @@ class CartProvider with ChangeNotifier {
       (existingCartItem) => CartItem(
         product: existingCartItem.product,
         quantity: existingCartItem.quantity + 1,
+        price: existingCartItem.price,
       ),
     );
     notifyListeners();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class StarRating extends StatelessWidget {
-  final int rating;
+  final double rating;
   final double starSize;
   final Color starColor;
 

@@ -31,7 +31,6 @@ class MainScreenState extends State<MainScreen> {
         var productProvider =
             Provider.of<ProductProvider>(context, listen: false);
         await productProvider.fetchCategories();
-        await productProvider.fetchProducts();
       } catch (error) {
         // Handle error as needed
         // print('Error fetching data: $error');
@@ -75,7 +74,7 @@ class MainScreenState extends State<MainScreen> {
         ),
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.history,
               color: Colors.black,
               size: 24.0,
@@ -93,112 +92,116 @@ class MainScreenState extends State<MainScreen> {
       ),
       body: Stack(
         children: [
-          SingleChildScrollView(
-            child: Consumer<ProductProvider>(
-              builder: (context, productProvider, _) {
-                if (_isLoading) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (productProvider.errorMessage != null) {
-                  return Center(
-                      child: Text('Error: ${productProvider.errorMessage}'));
-                } else {
-                  final categoriesWithProducts = productProvider.categories;
+          Center(
+            child: SingleChildScrollView(
+              child: Consumer<ProductProvider>(
+                builder: (context, productProvider, _) {
+                  if (_isLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (productProvider.errorMessage != null) {
+                    return Center(
+                        child: Text('Error: ${productProvider.errorMessage}'));
+                  } else {
+                    final categoriesWithProducts = productProvider.categories;
 
-                  if (categoriesWithProducts.isEmpty) {
-                    return const Center(
-                        child: Text('No categories with products.'));
+                    if (categoriesWithProducts.isEmpty) {
+                      return const Center(
+                          child: Text('No categories with products.'));
+                    }
+
+                    return Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          Stack(
+                            children: [
+                              // Banner image
+                              Container(
+                                width: double.infinity,
+                                height: 250.0,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  image: const DecorationImage(
+                                    image:
+                                        AssetImage('assets/images/banner.jpeg'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              // Overlay
+                              Container(
+                                width: double.infinity,
+                                height: 250.0,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  color: Colors.black.withOpacity(0.0),
+                                ),
+                              ),
+                              // Text on top of the overlay
+                              Positioned(
+                                left: 26.0,
+                                top: 73.0,
+                                child: SizedBox(
+                                  width: 250.0,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Premium Sound, Premium Savings',
+                                        style: GoogleFonts.montserrat(
+                                          textStyle: const TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.w600,
+                                            height: 1.4,
+                                            color: Color(0xFFFAFAFA),
+                                            textBaseline:
+                                                TextBaseline.alphabetic,
+                                          ),
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                      const SizedBox(height: 4.0),
+                                      Text(
+                                        'Limited offer, hop on to get yours',
+                                        style: GoogleFonts.montserrat(
+                                          textStyle: const TextStyle(
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.w500,
+                                            height: 1.22,
+                                            color: Color(0xFFFAFAFA),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 36.0,
+                          ),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: categoriesWithProducts.length,
+                            itemBuilder: (context, index) {
+                              final category = categoriesWithProducts[index];
+
+                              // print(category.name);
+                              return CategorySlider(category: category);
+                            },
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.1,
+                          ),
+                        ],
+                      ),
+                    );
                   }
-
-                  return Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        Stack(
-                          children: [
-                            // Banner image
-                            Container(
-                              width: double.infinity,
-                              height: 250.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12.0),
-                                image: const DecorationImage(
-                                  image:
-                                      AssetImage('assets/images/banner.jpeg'),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            // Overlay
-                            Container(
-                              width: double.infinity,
-                              height: 250.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12.0),
-                                color: Colors.black.withOpacity(0.0),
-                              ),
-                            ),
-                            // Text on top of the overlay
-                            Positioned(
-                              left: 26.0,
-                              top: 73.0,
-                              child: SizedBox(
-                                width: 250.0,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Premium Sound, Premium Savings',
-                                      style: GoogleFonts.montserrat(
-                                        textStyle: const TextStyle(
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.w600,
-                                          height: 1.4,
-                                          color: Color(0xFFFAFAFA),
-                                          textBaseline: TextBaseline.alphabetic,
-                                        ),
-                                      ),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                    const SizedBox(height: 4.0),
-                                    Text(
-                                      'Limited offer, hop on to get yours',
-                                      style: GoogleFonts.montserrat(
-                                        textStyle: const TextStyle(
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w500,
-                                          height: 1.22,
-                                          color: Color(0xFFFAFAFA),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 36.0,
-                        ),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: categoriesWithProducts.length,
-                          itemBuilder: (context, index) {
-                            final category = categoriesWithProducts[index];
-
-                            // print(category.name);
-                            return CategorySlider(category: category);
-                          },
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.1,
-                        ),
-                      ],
-                    ),
-                  );
-                }
-              },
+                },
+              ),
             ),
           ),
           CustomBottomNavigationBar(
@@ -265,6 +268,11 @@ class _CategorySliderState extends State<CategorySlider> {
     });
   }
 
+  String capitalizeFirst(String input) {
+    if (input.isEmpty) return input;
+    return input[0].toUpperCase() + input.substring(1);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ProductProvider>(builder: (context, productProvider, _) {
@@ -277,7 +285,7 @@ class _CategorySliderState extends State<CategorySlider> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                widget.category.name,
+                capitalizeFirst(widget.category.name),
                 style: GoogleFonts.montserrat(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
@@ -311,7 +319,7 @@ class _CategorySliderState extends State<CategorySlider> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                widget.category.name,
+                capitalizeFirst(widget.category.name),
                 style: GoogleFonts.montserrat(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,

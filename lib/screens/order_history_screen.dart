@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/order.dart';
 import 'package:provider/provider.dart';
-import '../models/product.dart';
+// import '../models/product.dart';
 import '../providers/order_provider.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
 import 'cart_screen.dart';
@@ -63,9 +63,9 @@ class OrderHistoryScreen extends StatelessWidget {
                             final order = orders[index];
                             return ListTile(
                               title: Text('Order ID: ${order.id}'),
-                              subtitle: Text('Placed on: ${order.createdAt}'),
+                              subtitle: Text('Placed on: ${order.orderDate}'),
                               trailing: Text(
-                                  'Total: \$${calculateTotal(order.products)}'),
+                                  'Total: \$${calculateTotal(order.orderItems)}'),
                               // Implement onTap to navigate to detailed order view if needed
                             );
                           },
@@ -111,7 +111,7 @@ class OrderHistoryScreen extends StatelessWidget {
     );
   }
 
-  double calculateTotal(List<Product> products) {
+  double calculateTotal(List<OrderItem> products) {
     return products.fold(0, (total, product) => total + product.price);
   }
 }

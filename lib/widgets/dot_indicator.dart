@@ -7,10 +7,10 @@ class DotsIndicator extends AnimatedWidget {
   final int itemCount;
 
   const DotsIndicator({
-    Key? key,
+    super.key,
     required this.controller,
     required this.itemCount,
-  }) : super(key: key, listenable: controller);
+  }) : super(listenable: controller);
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +19,15 @@ class DotsIndicator extends AnimatedWidget {
       child: Center(
         child: SmoothPageIndicator(
           controller: controller,
-          count: itemCount,
+          count: (itemCount).ceil(),
           effect: const ScaleEffect(
             dotHeight: 12.0,
             dotWidth: 12.0,
             activeDotColor: Color(0xFFFF7F7D),
+            dotColor: Color(0XFFBBBBBB),
             // Custom properties for outlined dots
             paintStyle: PaintingStyle.stroke,
-            strokeWidth: 2,
+            strokeWidth: 1,
           ),
         ),
       ),

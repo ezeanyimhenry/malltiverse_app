@@ -8,7 +8,7 @@ class Product {
   final bool isAvailable;
   final double price;
   final String imageUrl;
-  final int rating;
+  double rating;
   final List<Category> categories;
 
   Product({
@@ -18,7 +18,7 @@ class Product {
     required this.uniqueId,
     required this.isAvailable,
     this.price = 0.00,
-    this.rating = 0,
+    this.rating = 0.0,
     this.imageUrl = '',
     required this.categories,
   });
@@ -62,7 +62,7 @@ class Product {
       uniqueId: json['unique_id'],
       isAvailable: json['is_available'],
       price: extractedPrice,
-      rating: 5,
+      rating: json['extra_infos']?['rating'] ?? 0.0,
       imageUrl: imageUrl,
       categories: categories,
     );
@@ -72,6 +72,7 @@ class Product {
 class CartItem {
   final Product product;
   int quantity;
+  double price;
 
-  CartItem({required this.product, this.quantity = 1});
+  CartItem({required this.product, this.quantity = 1, required this.price});
 }

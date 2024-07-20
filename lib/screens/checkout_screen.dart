@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hng_shopping_app_task/screens/payment_screen.dart';
 import 'package:provider/provider.dart';
+import '../models/order.dart';
 import '../providers/cart_provider.dart';
+import '../providers/order_provider.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
 import 'cart_screen.dart';
 import 'main_screen.dart';
@@ -16,6 +18,7 @@ class CheckoutScreen extends StatefulWidget {
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
+  final _addressController = TextEditingController();
   String? _selectedPickup;
 
   @override
@@ -24,6 +27,36 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     // Set the default selected value
     _selectedPickup =
         'Sokoto Street, Area 1, Garki Area 1 AMAC'; // Default selected gender
+  }
+
+  void _checkout() async {
+    final cart = Provider.of<CartProvider>(context, listen: false);
+    final orderProvider = Provider.of<OrderProvider>(context, listen: false);
+
+    final order = Order(
+      id: '',
+      deliveryAddress: _addressController.text,
+      orderItems: cart.items.values
+          .map((item) => OrderItem(
+                productId: item.product.id,
+                quantity: item.quantity,
+                price: item.price,
+              ))
+          .toList(),
+      orderDate: DateTime.now(),
+    );
+
+    try {
+      await orderProvider.addOrder(order);
+      cart.clear();
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const PaymentScreen()),
+      );
+    } catch (error) {
+      // Handle error
+      print(error);
+    }
   }
 
   @override
@@ -187,6 +220,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           ),
                           const SizedBox(height: 8),
                           TextField(
+                            controller: _addressController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(9.0),
@@ -272,15 +306,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
-                            onPressed: () {
-                              // Implement apply discount code functionality
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const PaymentScreen()),
-                              );
-                            },
+                            onPressed: _checkout,
                             child: Text(
                               'Go to Payment',
                               style: GoogleFonts.montserrat(
