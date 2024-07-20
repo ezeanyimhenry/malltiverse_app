@@ -382,7 +382,7 @@ class ProductCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5.0),
                   image: DecorationImage(
-                    image: NetworkImage(product.imageUrl),
+                    image: NetworkImage(product.photoUrls[0]),
                     fit: BoxFit.cover,
                   ),
                 ),

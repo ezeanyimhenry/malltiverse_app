@@ -71,11 +71,50 @@ class ProductDetailScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12.0),
                           image: DecorationImage(
-                            image: NetworkImage(product.imageUrl),
+                            image: NetworkImage(product.photoUrls[0]),
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
+                      const SizedBox(height: 20.0),
+                      if (product.photoUrls.length > 1)
+                        SizedBox(
+                          height: 100.0,
+                          child: PageView.builder(
+                            itemCount: (product.photoUrls.length / 5).ceil(),
+                            itemBuilder: (context, pageIndex) {
+                              int startIndex = pageIndex * 5;
+                              int endIndex = startIndex + 5;
+                              endIndex = endIndex > product.photoUrls.length
+                                  ? product.photoUrls.length
+                                  : endIndex;
+
+                              List<String> photosForPage = product.photoUrls
+                                  .sublist(startIndex, endIndex);
+
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: photosForPage
+                                    .map((photoUrl) => Expanded(
+                                          child: Container(
+                                            margin: const EdgeInsets.all(4.0),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                              image: DecorationImage(
+                                                image: NetworkImage(photoUrl),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            height: 180.0,
+                                          ),
+                                        ))
+                                    .toList(),
+                              );
+                            },
+                          ),
+                        ),
                       const SizedBox(height: 20.0),
                       Text(
                         product.name,

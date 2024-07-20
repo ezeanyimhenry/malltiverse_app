@@ -97,49 +97,6 @@ class ApiService {
     }
   }
 
-  Future<List<Product>> fetchProductsByCategory({
-    required String categoryId,
-    int page = 1,
-    int size = 50,
-    bool reverseSort = false,
-  }) async {
-    if (apiKey.isEmpty || appId.isEmpty || organizationId.isEmpty) {
-      throw Exception("API Key, App ID, or Organization ID is not set");
-    }
-
-    try {
-      final response = await http.get(
-        Uri.parse(
-          "$apiUrl/products?organization_id=$organizationId&category_id=$categoryId&page=$page&size=$size&Appid=$appId&Apikey=$apiKey",
-        ),
-      );
-
-      if (response.statusCode == 200) {
-        Map<String, dynamic> data = json.decode(response.body);
-        List<dynamic> items = data['items'];
-        print(items);
-        if (items != null) {
-          List<Product> products =
-              items.map((item) => Product.fromJson(item)).toList();
-
-          return products;
-        } else {
-          throw Exception("API returned null response");
-        }
-      } else if (response.statusCode == 403) {
-        throw Exception("Invalid credentials: ${response.body}");
-      } else if (response.statusCode == 404) {
-        throw Exception("Endpoint not found: ${response.body}");
-      } else {
-        throw Exception(
-            "Failed to load products: ${response.statusCode} - ${response.body}");
-      }
-    } catch (e) {
-      // print("Error during API call: $e");
-      throw Exception("Failed to load products");
-    }
-  }
-
   Future<Order> addOrder(Order order) async {
     final url = Uri.parse('$apiUrl/sales?Appid=$appId&Apikey=$apiKey');
     final response = await http.post(

@@ -68,24 +68,6 @@ class ProductProvider with ChangeNotifier {
     }
   }
 
-  Future<void> fetchProductsByCategory(String category) async {
-    _isLoading = true;
-    notifyListeners(); // Notify listeners that loading has started
-
-    try {
-      _products =
-          await ApiService().fetchProductsByCategory(categoryId: category);
-      _errorMessage = null; // Reset error message if successful
-    } catch (error) {
-      _errorMessage = error.toString(); // Capture error message
-    } finally {
-      _isLoading = false; // Mark loading as complete
-      await Future.microtask(() {
-        notifyListeners(); // Notify listeners after state changes
-      });
-    }
-  }
-
   void addToCart(Product product) {
     _cartItems.add(product);
     notifyListeners();

@@ -7,9 +7,9 @@ class Product {
   final String uniqueId;
   final bool isAvailable;
   final double price;
-  final String imageUrl;
   double rating;
   final List<Category> categories;
+  final List<String> photoUrls;
 
   Product({
     required this.id,
@@ -19,8 +19,8 @@ class Product {
     required this.isAvailable,
     this.price = 0.00,
     this.rating = 0.0,
-    this.imageUrl = '',
     required this.categories,
+    this.photoUrls = const [],
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -28,13 +28,15 @@ class Product {
     List<Category> categories =
         categoryList.map((i) => Category.fromJson(i)).toList();
 
-    String imageUrl = '';
-    if (json['photos'] != null && json['photos'].isNotEmpty) {
-      imageUrl = json['photos'][0]['url'];
-      // Check if the URL is relative and make it absolute
-      if (!imageUrl.startsWith('http')) {
-        imageUrl = 'https://api.timbu.cloud/images/$imageUrl';
-      }
+    List<String> photoList = [];
+    if (json['photos'] != null && (json['photos'] as List).isNotEmpty) {
+      photoList = (json['photos'] as List).map((photo) {
+        String urlOfPhotos = photo['url'];
+        if (!urlOfPhotos.startsWith('http')) {
+          urlOfPhotos = 'https://api.timbu.cloud/images/$urlOfPhotos';
+        }
+        return urlOfPhotos;
+      }).toList();
     }
 
 // Extract price from current_price field
@@ -63,8 +65,8 @@ class Product {
       isAvailable: json['is_available'],
       price: extractedPrice,
       rating: json['extra_infos']?['rating'] ?? 0.0,
-      imageUrl: imageUrl,
       categories: categories,
+      photoUrls: photoList,
     );
   }
 }
