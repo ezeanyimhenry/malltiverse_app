@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../models/category.dart';
 import '../providers/cart_provider.dart';
@@ -361,6 +362,8 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final priceFormat = NumberFormat.currency(locale: 'en_NG', symbol: '₦');
+    String formattedPrice = priceFormat.format(product.price);
     return Expanded(
       child: InkWell(
         onTap: () => {
@@ -422,7 +425,7 @@ class ProductCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 13.0),
                     Text(
-                      '₦${product.price.toStringAsFixed(2)}',
+                      formattedPrice,
                       style: GoogleFonts.montserrat(
                         fontWeight: FontWeight.w500,
                         fontSize: 13.0,
