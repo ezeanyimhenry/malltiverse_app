@@ -48,7 +48,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
               icon: Stack(
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(top: 15),
+                    padding: const EdgeInsets.symmetric(vertical: 15),
                     child: CircleAvatar(
                       radius: 18,
                       backgroundColor: (selectedIndex == 1)
@@ -70,7 +70,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
               icon: Stack(
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(top: 15),
+                    padding: const EdgeInsets.symmetric(vertical: 15),
                     child: CircleAvatar(
                       radius: 18,
                       backgroundColor: (selectedIndex == 2)
