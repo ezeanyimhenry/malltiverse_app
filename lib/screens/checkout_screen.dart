@@ -7,8 +7,6 @@ import '../models/order.dart';
 import '../providers/cart_provider.dart';
 import '../providers/order_provider.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
-import 'cart_screen.dart';
-import 'main_screen.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
@@ -337,30 +335,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               },
             ),
           ),
-          CustomBottomNavigationBar(
+          const CustomBottomNavigationBar(
             selectedIndex: 2,
-            onItemTapped: (index) {
-              if (index == 0) {
-                // Navigate to CartScreen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MainScreen()),
-                );
-              } else if (index == 1) {
-                // Navigate to CartScreen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CartScreen()),
-                );
-              } else if (index == 2) {
-                // Navigate to CheckoutScreen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CheckoutScreen()),
-                );
-              }
-            },
           )
         ],
       ),

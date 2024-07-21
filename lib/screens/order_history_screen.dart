@@ -8,9 +8,6 @@ import '../models/product.dart';
 import '../providers/order_provider.dart';
 import '../services/api_service.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
-import 'cart_screen.dart';
-import 'checkout_screen.dart';
-import 'main_screen.dart';
 
 class OrderHistoryScreen extends StatefulWidget {
   @override
@@ -280,27 +277,8 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
               },
             ),
           ),
-          CustomBottomNavigationBar(
+          const CustomBottomNavigationBar(
             selectedIndex: 0,
-            onItemTapped: (index) {
-              if (index == 0) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MainScreen()),
-                );
-              } else if (index == 1) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CartScreen()),
-                );
-              } else if (index == 2) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CheckoutScreen()),
-                );
-              }
-            },
           )
         ],
       ),

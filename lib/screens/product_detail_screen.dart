@@ -6,9 +6,6 @@ import 'package:intl/intl.dart';
 
 import '../providers/cart_provider.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
-import 'cart_screen.dart';
-import 'checkout_screen.dart';
-import 'main_screen.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   final Product product;
@@ -201,30 +198,8 @@ class ProductDetailScreen extends StatelessWidget {
               ),
             ),
           ),
-          CustomBottomNavigationBar(
+          const CustomBottomNavigationBar(
             selectedIndex: 0,
-            onItemTapped: (index) {
-              if (index == 0) {
-                // Navigate to MainScreen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MainScreen()),
-                );
-              } else if (index == 1) {
-                // Navigate to CartScreen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CartScreen()),
-                );
-              } else if (index == 2) {
-                // Navigate to CheckoutScreen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CheckoutScreen()),
-                );
-              }
-            },
           ),
         ],
       ),

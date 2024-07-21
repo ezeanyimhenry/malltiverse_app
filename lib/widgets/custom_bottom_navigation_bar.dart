@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../screens/cart_screen.dart';
+import '../screens/checkout_screen.dart';
+import '../screens/main_screen.dart';
+
 class CustomBottomNavigationBar extends StatelessWidget {
   final int selectedIndex;
-  final Function(int) onItemTapped;
 
   const CustomBottomNavigationBar({
     super.key,
     required this.selectedIndex,
-    required this.onItemTapped,
   });
 
   @override
@@ -90,7 +92,27 @@ class CustomBottomNavigationBar extends StatelessWidget {
           currentIndex: selectedIndex,
           selectedItemColor: Colors.white, // Color for selected icon
           unselectedItemColor: Colors.white, // Color for unselected icons
-          onTap: onItemTapped,
+          onTap: (index) {
+            if (index == 0) {
+              // Navigate to MainScreen
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MainScreen()),
+              );
+            } else if (index == 1) {
+              // Navigate to CartScreen
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CartScreen()),
+              );
+            } else if (index == 2) {
+              // Navigate to CheckoutScreen
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CheckoutScreen()),
+              );
+            }
+          },
           backgroundColor: const Color(0xFF2A2A2A),
           elevation: 8.0, // Add elevation to make it float
           type: BottomNavigationBarType.fixed,

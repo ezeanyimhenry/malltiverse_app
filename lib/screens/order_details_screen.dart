@@ -5,9 +5,6 @@ import '../models/order.dart';
 import '../models/product.dart';
 import '../services/api_service.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
-import 'cart_screen.dart';
-import 'checkout_screen.dart';
-import 'main_screen.dart';
 import 'product_detail_screen.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
@@ -417,27 +414,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
               },
             ),
           ),
-          CustomBottomNavigationBar(
+          const CustomBottomNavigationBar(
             selectedIndex: 0,
-            onItemTapped: (index) {
-              if (index == 0) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MainScreen()),
-                );
-              } else if (index == 1) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CartScreen()),
-                );
-              } else if (index == 2) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CheckoutScreen()),
-                );
-              }
-            },
           ),
         ],
       ),

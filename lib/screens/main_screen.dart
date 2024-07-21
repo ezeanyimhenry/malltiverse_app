@@ -10,10 +10,8 @@ import '../providers/wishlist_provider.dart';
 import '../widgets/dot_indicator.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
 import '../widgets/star_rating.dart';
-import 'checkout_screen.dart';
 import 'order_history_screen.dart';
 import 'product_detail_screen.dart';
-import 'cart_screen.dart';
 import 'wishlist_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -220,30 +218,8 @@ class MainScreenState extends State<MainScreen> {
               ),
             ),
           ),
-          CustomBottomNavigationBar(
+          const CustomBottomNavigationBar(
             selectedIndex: 0,
-            onItemTapped: (index) {
-              if (index == 0) {
-                // Navigate to MainScreen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MainScreen()),
-                );
-              } else if (index == 1) {
-                // Navigate to CartScreen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CartScreen()),
-                );
-              } else if (index == 2) {
-                // Navigate to CheckoutScreen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CheckoutScreen()),
-                );
-              }
-            },
           ),
         ],
       ),

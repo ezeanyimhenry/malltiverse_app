@@ -4,9 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart_provider.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
-import 'cart_screen.dart';
-import 'checkout_screen.dart';
-import 'main_screen.dart';
 import 'successful_screen.dart';
 
 class PaymentScreen extends StatelessWidget {
@@ -228,30 +225,8 @@ class PaymentScreen extends StatelessWidget {
               },
             ),
           ),
-          CustomBottomNavigationBar(
+          const CustomBottomNavigationBar(
             selectedIndex: 2,
-            onItemTapped: (index) {
-              if (index == 0) {
-                // Navigate to CartScreen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MainScreen()),
-                );
-              } else if (index == 1) {
-                // Navigate to CartScreen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CartScreen()),
-                );
-              } else if (index == 2) {
-                // Navigate to CheckoutScreen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CheckoutScreen()),
-                );
-              }
-            },
           )
         ],
       ),
