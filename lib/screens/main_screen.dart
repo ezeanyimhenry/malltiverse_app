@@ -312,7 +312,7 @@ class _CategorySliderState extends State<CategorySlider> {
           ],
         );
       } else if (products.isEmpty) {
-        return const Center(child: Text('No Products in this Category'));
+        return const SizedBox.shrink();
       } else {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
