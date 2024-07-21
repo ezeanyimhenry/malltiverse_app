@@ -8,14 +8,20 @@ HNG Shopping App is a Flutter application that allows users to browse and purcha
 - **Product Listing:** View detailed product listings including images, descriptions, ratings, and prices.
 - **Shopping Cart:** Add products to the cart and proceed to checkout.
 - **Checkout Process:** Complete the purchase securely with integrated payment methods.
+- **Order History:** View a detailed history of all past orders, including order dates, items purchased, delivery & pickup information, and total amounts.
+- **Wishlist:** Add products to a wishlist for future reference, and view and manage your wishlist items.
 
 ## Screenshots
 
 <img src="assets/screenshots/home.png" alt="Products Screen" width="300">
+<img src="assets/screenshots/product-details.png" alt="Products Details Screen" width="300">
 <img src="assets/screenshots/cart.png" alt="Cart Screen" width="300">
 <img src="assets/screenshots/checkout.png" alt="Checkout Screen" width="300">
 <img src="assets/screenshots/payment.png" alt="Payment Screen" width="300">
 <img src="assets/screenshots/success.png" alt="Payment Successful Screen" width="300">
+<img src="assets/screenshots/order-history.png" alt="Order History Screen" width="300">
+<img src="assets/screenshots/order-details.png" alt="Order Details Screen" width="300">
+<img src="assets/screenshots/wishlist.png" alt="WishList Screen" width="300">
 
 ## Technologies Used
 
