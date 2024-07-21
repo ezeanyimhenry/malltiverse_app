@@ -159,6 +159,7 @@ class ApiService {
     final responseData = {
       'id': uniqueOrderId,
       'deliveryAddress': order.deliveryAddress,
+      'pickupAddress': order.pickupAddress,
       'phone1': order.phone1,
       'phone2': order.phone2,
       'items': order.orderItems
@@ -175,6 +176,7 @@ class ApiService {
     return Order(
       id: responseData['id'] as String,
       deliveryAddress: responseData['deliveryAddress'] as String,
+      pickupAddress: responseData['pickupAddress'] as String,
       phone1: responseData['phone1'] as String,
       phone2: responseData['phone2'] as String,
       orderItems: (responseData['items'] as List)

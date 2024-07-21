@@ -206,6 +206,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                             itemBuilder: (context, orderIndex) {
                               final item = widget.order.orderItems[orderIndex];
                               final product = products[item.productId];
+
                               if (product == null) {
                                 return SizedBox.shrink();
                               }
@@ -359,7 +360,16 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                   ),
                                 ),
                                 Text(
-                                  'Phone: 09091344893',
+                                  'Phone: ${widget.order.phone1}',
+                                  style: GoogleFonts.montserrat(
+                                    textStyle: const TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  'Phone: ${widget.order.phone2}',
                                   style: GoogleFonts.montserrat(
                                     textStyle: const TextStyle(
                                       fontWeight: FontWeight.w400,
@@ -383,7 +393,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                   ),
                                 ),
                                 Text(
-                                  widget.order.deliveryAddress,
+                                  widget.order.pickupAddress ?? '',
                                   style: GoogleFonts.montserrat(
                                     textStyle: const TextStyle(
                                       fontWeight: FontWeight.w400,

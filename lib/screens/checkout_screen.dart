@@ -38,6 +38,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     final order = Order(
       id: '',
       deliveryAddress: _addressController.text,
+      pickupAddress: _selectedPickup,
       phone1: _phone1Controller.text,
       phone2: _phone2Controller.text,
       orderItems: cart.items.values

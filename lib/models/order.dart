@@ -1,13 +1,15 @@
 class Order {
   final String id;
-  final String deliveryAddress;
-  final String phone1;
-  final String phone2;
+  final String? pickupAddress;
+  final String? deliveryAddress;
+  final String? phone1;
+  final String? phone2;
   final List<OrderItem> orderItems;
   final DateTime orderDate;
 
   Order({
     required this.id,
+    this.pickupAddress = '',
     this.deliveryAddress = '',
     this.phone1 = '',
     this.phone2 = '',
