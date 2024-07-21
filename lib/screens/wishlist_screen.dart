@@ -15,15 +15,19 @@ class WishlistScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leadingWidth: 120,
         backgroundColor: Colors.white,
         leading: Padding(
           padding: const EdgeInsets.only(left: 24.0),
-          child: SizedBox(
-            width: 200.0,
-            child: Image.asset(
-              'assets/images/logo.png',
-              fit: BoxFit.contain,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: SizedBox(
+              width: 200.0,
+              child: Image.asset(
+                'assets/images/arrow-left.png',
+                fit: BoxFit.contain,
+              ),
             ),
           ),
         ),
@@ -39,7 +43,7 @@ class WishlistScreen extends StatelessWidget {
           ),
         ),
         elevation: 0,
-        centerTitle: true,
+        centerTitle: false,
       ),
       body: Stack(
         children: [
