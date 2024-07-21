@@ -5,6 +5,7 @@ import '../models/product.dart';
 import 'package:intl/intl.dart';
 
 import '../providers/cart_provider.dart';
+import '../providers/wishlist_provider.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -157,36 +158,77 @@ class ProductDetailScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 20.0),
-                        ElevatedButton(
-                          onPressed: () {
-                            Provider.of<CartProvider>(context, listen: false)
-                                .addItem(product);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Added to cart!'),
-                                duration: Duration(seconds: 2),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                Provider.of<CartProvider>(context,
+                                        listen: false)
+                                    .addItem(product);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Added to cart!'),
+                                    duration: Duration(seconds: 2),
+                                  ),
+                                );
+                              },
+                              style: OutlinedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                side: const BorderSide(
+                                    width: 1.0,
+                                    color: Color(0xFFFF7F7D)), // Border
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      14.0), // Border radius
+                                ),
                               ),
-                            );
-                          },
-                          style: OutlinedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            side: const BorderSide(
-                                width: 1.0, color: Color(0xFFFF7F7D)), // Border
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(14.0), // Border radius
-                            ),
-                          ),
-                          child: Text(
-                            'Add to Cart',
-                            style: GoogleFonts.montserrat(
-                              textStyle: const TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12.0,
-                                height: 1.22,
+                              child: Text(
+                                'Add to Cart',
+                                style: GoogleFonts.montserrat(
+                                  textStyle: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12.0,
+                                    height: 1.22,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 5.0),
+                              child: Consumer<WishlistProvider>(
+                                builder: (context, wishlistProvider, child) {
+                                  bool isInWishlist = wishlistProvider.wishlist
+                                      .contains(product);
+                                  return GestureDetector(
+                                    onTap: () {
+                                      wishlistProvider.toggleWishlist(product);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        isInWishlist
+                                            ? const SnackBar(
+                                                content: Text(
+                                                    'Removed from Wishlist!'),
+                                                duration: Duration(seconds: 1),
+                                              )
+                                            : const SnackBar(
+                                                content:
+                                                    Text('Added to Wishlist!'),
+                                                duration: Duration(seconds: 1),
+                                              ),
+                                      );
+                                    },
+                                    child: Icon(
+                                      isInWishlist
+                                          ? Icons.favorite
+                                          : Icons.favorite_border,
+                                      color: Color(0xFFFF7F7D),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.1,

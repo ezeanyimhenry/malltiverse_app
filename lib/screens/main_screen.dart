@@ -428,6 +428,7 @@ class ProductCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 17.0),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         ElevatedButton(
                           onPressed: () {
@@ -469,6 +470,18 @@ class ProductCard extends StatelessWidget {
                               return GestureDetector(
                                 onTap: () {
                                   wishlistProvider.toggleWishlist(product);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    isInWishlist
+                                        ? const SnackBar(
+                                            content:
+                                                Text('Removed from Wishlist!'),
+                                            duration: Duration(seconds: 1),
+                                          )
+                                        : const SnackBar(
+                                            content: Text('Added to Wishlist!'),
+                                            duration: Duration(seconds: 1),
+                                          ),
+                                  );
                                 },
                                 child: Icon(
                                   isInWishlist
