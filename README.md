@@ -70,10 +70,10 @@ Contributions are welcome! Here's how you can contribute to this project:
 ## Download the Demo
 
 ### APK Download
-- [Download APK](https://drive.google.com/file/d/1BeiWxdam1fA_SOuW-t83ot6l87MzUUqB/view?usp=sharing)
+- [Download APK](https://drive.google.com/file/d/1DjdSvY-Uxa73MTJWLTxBYMZP_xVaYrFr/view?usp=sharing)
 
 ### Appetize.io Demo
-- [Open Appetize.io Demo](https://appetize.io/app/b_s3vnk3dw5f2atadiom7hgi3xl4)
+- [Open Appetize.io Demo](https://appetize.io/app/b_izew4kbgvnyy4ov4usfnfjqndu)
 
 ## License
 
