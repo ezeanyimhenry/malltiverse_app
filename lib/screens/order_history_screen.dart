@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hng_shopping_app_task/screens/order_details_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../models/order.dart';
@@ -52,16 +53,34 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 24.0),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: SizedBox(
+              width: 200.0,
+              child: Image.asset(
+                'assets/images/arrow-left.png',
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+        ),
         title: Text(
           'Order History',
           style: GoogleFonts.montserrat(
             textStyle: const TextStyle(
               fontSize: 19.0,
               fontWeight: FontWeight.w600,
+              height: 1.22,
               color: Color(0xFF2A2A2A),
             ),
           ),
         ),
+        elevation: 0,
+        centerTitle: false,
       ),
       body: Stack(
         children: [
@@ -108,7 +127,15 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                                   }
 
                                   return InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                OrderDetailsScreen(
+                                                    order: order)),
+                                      );
+                                    },
                                     child: Container(
                                       margin: const EdgeInsets.symmetric(
                                           vertical: 14, horizontal: 24),
@@ -213,7 +240,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                                                 CrossAxisAlignment.end,
                                             children: [
                                               Text(
-                                                item.quantity.toString(),
+                                                'QTY: ${item.quantity.toString()}',
                                                 style: GoogleFonts.montserrat(
                                                   textStyle: const TextStyle(
                                                     fontWeight: FontWeight.w600,
@@ -278,9 +305,5 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
         ],
       ),
     );
-  }
-
-  double calculateTotal(List<OrderItem> products) {
-    return products.fold(0, (total, product) => total + product.price);
   }
 }

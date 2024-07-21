@@ -99,8 +99,10 @@ class CartScreen extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(1),
                                         image: DecorationImage(
-                                          image: NetworkImage(
-                                              item.product.photoUrls[0]),
+                                          image: NetworkImage(item
+                                                  .product.photoUrls.isNotEmpty
+                                              ? item.product.photoUrls.first
+                                              : 'https://via.placeholder.com/60'),
                                           fit: BoxFit.cover,
                                         ),
                                       ),

@@ -19,6 +19,8 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   final _addressController = TextEditingController();
+  final _phone1Controller = TextEditingController();
+  final _phone2Controller = TextEditingController();
   String? _selectedPickup;
 
   @override
@@ -36,6 +38,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     final order = Order(
       id: '',
       deliveryAddress: _addressController.text,
+      phone1: _phone1Controller.text,
+      phone2: _phone2Controller.text,
       orderItems: cart.items.values
           .map((item) => OrderItem(
                 productId: item.product.id,
@@ -251,6 +255,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           ),
                           const SizedBox(height: 8),
                           TextField(
+                            controller: _phone1Controller,
                             keyboardType: TextInputType.phone,
                             inputFormatters: [
                               FilteringTextInputFormatter
@@ -273,6 +278,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           ),
                           const SizedBox(height: 8),
                           TextField(
+                            controller: _phone2Controller,
                             keyboardType: TextInputType.phone,
                             inputFormatters: [
                               FilteringTextInputFormatter

@@ -1,12 +1,16 @@
 class Order {
   final String id;
   final String deliveryAddress;
+  final String phone1;
+  final String phone2;
   final List<OrderItem> orderItems;
   final DateTime orderDate;
 
   Order({
     required this.id,
-    required this.deliveryAddress,
+    this.deliveryAddress = '',
+    this.phone1 = '',
+    this.phone2 = '',
     required this.orderItems,
     required this.orderDate,
   });

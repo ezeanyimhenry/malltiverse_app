@@ -157,9 +157,10 @@ class ApiService {
 
     // Construct the response data using the passed parameters
     final responseData = {
-      'id': uniqueOrderId, // Use the generated unique ID
-      'deliveryAddress': order
-          .deliveryAddress, // Use the delivery address from the passed order
+      'id': uniqueOrderId,
+      'deliveryAddress': order.deliveryAddress,
+      'phone1': order.phone1,
+      'phone2': order.phone2,
       'items': order.orderItems
           .map((item) => {
                 'productId': item.productId,
@@ -167,14 +168,15 @@ class ApiService {
                 'price': item.price,
               })
           .toList(),
-      'orderDate': DateTime.now()
-          .toIso8601String(), // Use the current date/time as the order date
+      'orderDate': DateTime.now().toIso8601String(),
     };
 
     // Create and return the Order object
     return Order(
       id: responseData['id'] as String,
       deliveryAddress: responseData['deliveryAddress'] as String,
+      phone1: responseData['phone1'] as String,
+      phone2: responseData['phone2'] as String,
       orderItems: (responseData['items'] as List)
           .map((item) => OrderItem(
                 productId: item['productId'],
