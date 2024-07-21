@@ -6,6 +6,7 @@ import '../models/category.dart';
 import '../providers/cart_provider.dart';
 import '../providers/product_provider.dart';
 import '../models/product.dart';
+import '../providers/wishlist_provider.dart';
 import '../widgets/dot_indicator.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
 import '../widgets/star_rating.dart';
@@ -13,6 +14,7 @@ import 'checkout_screen.dart';
 import 'order_history_screen.dart';
 import 'product_detail_screen.dart';
 import 'cart_screen.dart';
+import 'wishlist_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -77,13 +79,26 @@ class MainScreenState extends State<MainScreen> {
           IconButton(
             icon: const Icon(
               Icons.history,
-              color: Colors.black,
+              color: Color(0xFFFF7F7D),
               size: 24.0,
             ),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => OrderHistoryScreen()),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.favorite_border,
+              color: Color(0xFFFF7F7D),
+              size: 24.0,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => WishlistScreen()),
               );
             },
           ),
@@ -436,36 +451,60 @@ class ProductCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 17.0),
-                    ElevatedButton(
-                      onPressed: () {
-                        Provider.of<CartProvider>(context, listen: false)
-                            .addItem(product);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Added to cart!'),
-                            duration: Duration(seconds: 2),
+                    Row(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Provider.of<CartProvider>(context, listen: false)
+                                .addItem(product);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Added to cart!'),
+                                duration: Duration(seconds: 2),
+                              ),
+                            );
+                          },
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            side: const BorderSide(
+                                width: 1.0, color: Color(0xFFFF7F7D)), // Border
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(14.0), // Border radius
+                            ),
                           ),
-                        );
-                      },
-                      style: OutlinedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        side: const BorderSide(
-                            width: 1.0, color: Color(0xFFFF7F7D)), // Border
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(14.0), // Border radius
-                        ),
-                      ),
-                      child: Text(
-                        'Add to Cart',
-                        style: GoogleFonts.montserrat(
-                          textStyle: const TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12.0,
-                            height: 1.22,
+                          child: Text(
+                            'Add to Cart',
+                            style: GoogleFonts.montserrat(
+                              textStyle: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12.0,
+                                height: 1.22,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5.0),
+                          child: Consumer<WishlistProvider>(
+                            builder: (context, wishlistProvider, child) {
+                              bool isInWishlist =
+                                  wishlistProvider.wishlist.contains(product);
+                              return GestureDetector(
+                                onTap: () {
+                                  wishlistProvider.toggleWishlist(product);
+                                },
+                                child: Icon(
+                                  isInWishlist
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: Color(0xFFFF7F7D),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

@@ -10,6 +10,7 @@ class Product {
   double rating;
   final List<Category> categories;
   final List<String> photoUrls;
+  bool isInWishlist;
 
   Product({
     required this.id,
@@ -21,6 +22,7 @@ class Product {
     this.rating = 0.0,
     required this.categories,
     this.photoUrls = const [],
+    this.isInWishlist = false,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
