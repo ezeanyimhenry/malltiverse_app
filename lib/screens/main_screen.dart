@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -7,6 +8,7 @@ import '../providers/cart_provider.dart';
 import '../providers/product_provider.dart';
 import '../models/product.dart';
 import '../providers/wishlist_provider.dart';
+import '../services/network_service.dart';
 import '../widgets/dot_indicator.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
 import '../widgets/star_rating.dart';
@@ -23,25 +25,32 @@ class MainScreen extends StatefulWidget {
 
 class MainScreenState extends State<MainScreen> {
   bool _isLoading = true;
+  NetworkService _networkService = NetworkService();
 
   @override
   void initState() {
     super.initState();
+    // WidgetsBinding.instance.addPostFrameCallback((_) async {
+    //   try {
+    //     var productProvider =
+    //         Provider.of<ProductProvider>(context, listen: false);
+    //     await productProvider.fetchCategories();
+    //   } catch (error) {
+    //     // Handle error as needed
+    //     // print('Error fetching data: $error');
+    //   } finally {
+    //     if (mounted) {
+    //       setState(() {
+    //         _isLoading = false;
+    //       });
+    //     }
+    //   }
+    // });
+    super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      try {
-        var productProvider =
-            Provider.of<ProductProvider>(context, listen: false);
-        await productProvider.fetchCategories();
-      } catch (error) {
-        // Handle error as needed
-        // print('Error fetching data: $error');
-      } finally {
-        if (mounted) {
-          setState(() {
-            _isLoading = false;
-          });
-        }
-      }
+      var productProvider =
+          Provider.of<ProductProvider>(context, listen: false);
+      await productProvider.fetchCategories();
     });
   }
 
@@ -110,7 +119,7 @@ class MainScreenState extends State<MainScreen> {
             child: SingleChildScrollView(
               child: Consumer<ProductProvider>(
                 builder: (context, productProvider, _) {
-                  if (_isLoading) {
+                  if (productProvider.isLoading) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (productProvider.errorMessage != null) {
                     return Center(
@@ -217,6 +226,27 @@ class MainScreenState extends State<MainScreen> {
                 },
               ),
             ),
+          ),
+          StreamBuilder<ConnectivityResult>(
+            stream: _networkService.connectivityStream,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.active) {
+                final result = snapshot.data;
+                if (result == ConnectivityResult.none) {
+                  return Container(
+                    color: Color(0xFFFF7F7D),
+                    child: ListTile(
+                      title: Text('You are offline'),
+                      leading: Icon(Icons.wifi_off, color: Colors.white),
+                    ),
+                  );
+                } else {
+                  return SizedBox.shrink();
+                }
+              } else {
+                return SizedBox.shrink();
+              }
+            },
           ),
           const CustomBottomNavigationBar(
             selectedIndex: 0,

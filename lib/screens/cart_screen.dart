@@ -217,7 +217,7 @@ class CartScreen extends StatelessWidget {
                                         ),
                                         const SizedBox(height: 40),
                                         Text(
-                                          '₦${item.product.price.toStringAsFixed(2)}',
+                                          '₦${(item.product.price * item.quantity).toStringAsFixed(2)}',
                                           style: GoogleFonts.montserrat(
                                             textStyle: const TextStyle(
                                               fontWeight: FontWeight.w600,

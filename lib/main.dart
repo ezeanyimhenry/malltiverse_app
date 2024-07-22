@@ -15,6 +15,7 @@ void main() async {
   } catch (e) {
     // print("Error loading .env file: $e");
   }
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -50,7 +51,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => WishlistProvider()),
       ],
       child: MaterialApp(
-        title: 'Shopping App',
+        title: 'Malltiverse',
         theme: ThemeData(
           textTheme: GoogleFonts.montserratTextTheme(),
           primarySwatch: Colors.blue,

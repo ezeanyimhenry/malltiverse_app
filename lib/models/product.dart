@@ -41,7 +41,7 @@ class Product {
       }).toList();
     }
 
-// Extract price from current_price field
+    // Extract price from current_price field
     double extractedPrice = 0.00;
     if (json.containsKey('current_price')) {
       List<dynamic> currentPrice = json['current_price'];
@@ -70,6 +70,21 @@ class Product {
       categories: categories,
       photoUrls: photoList,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+      'unique_id': uniqueId,
+      'is_available': isAvailable,
+      'price': price,
+      'rating': rating,
+      'categories': categories.map((category) => category.toJson()).toList(),
+      'photos': photoUrls.map((url) => {'url': url}).toList(),
+      'is_in_wishlist': isInWishlist,
+    };
   }
 }
 
