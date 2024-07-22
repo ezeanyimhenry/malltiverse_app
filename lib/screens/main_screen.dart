@@ -24,28 +24,10 @@ class MainScreen extends StatefulWidget {
 }
 
 class MainScreenState extends State<MainScreen> {
-  bool _isLoading = true;
   NetworkService _networkService = NetworkService();
 
   @override
   void initState() {
-    super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((_) async {
-    //   try {
-    //     var productProvider =
-    //         Provider.of<ProductProvider>(context, listen: false);
-    //     await productProvider.fetchCategories();
-    //   } catch (error) {
-    //     // Handle error as needed
-    //     // print('Error fetching data: $error');
-    //   } finally {
-    //     if (mounted) {
-    //       setState(() {
-    //         _isLoading = false;
-    //       });
-    //     }
-    //   }
-    // });
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       var productProvider =

@@ -16,6 +16,7 @@ class CheckoutScreen extends StatefulWidget {
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
+  final _formKey = GlobalKey<FormState>();
   final _addressController = TextEditingController();
   final _phone1Controller = TextEditingController();
   final _phone2Controller = TextEditingController();
@@ -118,216 +119,236 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   return SingleChildScrollView(
                     child: Container(
                       margin: const EdgeInsets.all(24),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(
-                            'Select how to receive your package(s)',
-                            style: GoogleFonts.montserrat(
-                              textStyle: const TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w500,
-                                height: 1.22,
-                                color: Color(0xFF2A2A2A),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            'Pickup',
-                            style: GoogleFonts.montserrat(
-                              textStyle: const TextStyle(
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w500,
-                                height: 1.22,
-                                color: Color(0xFF2A2A2A),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          Row(
-                            children: [
-                              Radio<String>(
-                                activeColor: const Color(0xFFFF7F7D),
-                                value:
-                                    'Old Secretariat Complex, Area 1, Garki Abaji Abji',
-                                groupValue: _selectedPickup,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _selectedPickup = value;
-                                  });
-                                },
-                              ),
-                              Text(
-                                'Old Secretariat Complex, Area 1, Garki Abaji Abji',
-                                style: GoogleFonts.montserrat(
-                                  textStyle: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12.0,
-                                    height: 1.22,
-                                    color: const Color(0xFF2A2A2A)
-                                        .withOpacity(0.67),
-                                  ),
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          Row(
-                            children: [
-                              Radio<String>(
-                                activeColor: const Color(0xFFFF7F7D),
-                                value:
-                                    'Sokoto Street, Area 1, Garki Area 1 AMAC',
-                                groupValue: _selectedPickup,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _selectedPickup = value;
-                                  });
-                                },
-                              ),
-                              Text(
-                                'Sokoto Street, Area 1, Garki Area 1 AMAC',
-                                style: GoogleFonts.montserrat(
-                                  textStyle: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12.0,
-                                    height: 1.22,
-                                    color: const Color(0xFF2A2A2A)
-                                        .withOpacity(0.67),
-                                  ),
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            'Delivery', // Your label text
-                            style: GoogleFonts.montserrat(
-                              textStyle: TextStyle(
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w500,
-                                height: 1.22,
-                                color:
-                                    const Color(0xFF2A2A2A).withOpacity(0.63),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          TextField(
-                            controller: _addressController,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(9.0),
-                                borderSide: BorderSide(
-                                  color:
-                                      const Color(0xFF2A2A2A).withOpacity(0.7),
-                                  width: 1.0,
-                                ),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 12.0, horizontal: 16.0),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            'Contact', // Your label text
-                            style: GoogleFonts.montserrat(
-                              textStyle: TextStyle(
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w500,
-                                height: 1.22,
-                                color:
-                                    const Color(0xFF2A2A2A).withOpacity(0.63),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          TextField(
-                            controller: _phone1Controller,
-                            keyboardType: TextInputType.phone,
-                            inputFormatters: [
-                              FilteringTextInputFormatter
-                                  .digitsOnly, // Only numbers can be entered
-                            ],
-                            maxLength: 11,
-                            decoration: InputDecoration(
-                              hintText: 'phone nos 1',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(9.0),
-                                borderSide: BorderSide(
-                                  color:
-                                      const Color(0xFF2A2A2A).withOpacity(0.7),
-                                  width: 1.0,
-                                ),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 12.0, horizontal: 16.0),
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          TextField(
-                            controller: _phone2Controller,
-                            keyboardType: TextInputType.phone,
-                            inputFormatters: [
-                              FilteringTextInputFormatter
-                                  .digitsOnly, // Only numbers can be entered
-                            ],
-                            maxLength: 11,
-                            decoration: InputDecoration(
-                              hintText: 'phone nos 2',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(9.0),
-                                borderSide: BorderSide(
-                                  color:
-                                      const Color(0xFF2A2A2A).withOpacity(0.7),
-                                  width: 1.0,
-                                ),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 12.0, horizontal: 16.0),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFFF7F7D),
-                              foregroundColor: const Color(0xFF2A2A2A),
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 16.0, horizontal: 16.0),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
-                            onPressed: _checkout,
-                            child: Text(
-                              'Go to Payment',
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              'Select how to receive your package(s)',
                               style: GoogleFonts.montserrat(
                                 textStyle: const TextStyle(
-                                  fontSize: 12.0,
+                                  fontSize: 16.0,
                                   fontWeight: FontWeight.w500,
                                   height: 1.22,
                                   color: Color(0xFF2A2A2A),
                                 ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.1,
-                          ),
-                        ],
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              'Pickup',
+                              style: GoogleFonts.montserrat(
+                                textStyle: const TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.22,
+                                  color: Color(0xFF2A2A2A),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            Row(
+                              children: [
+                                Radio<String>(
+                                  activeColor: const Color(0xFFFF7F7D),
+                                  value:
+                                      'Old Secretariat Complex, Area 1, Garki Abaji Abji',
+                                  groupValue: _selectedPickup,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _selectedPickup = value;
+                                    });
+                                  },
+                                ),
+                                Text(
+                                  'Old Secretariat Complex, Area 1, Garki Abaji Abji',
+                                  style: GoogleFonts.montserrat(
+                                    textStyle: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12.0,
+                                      height: 1.22,
+                                      color: const Color(0xFF2A2A2A)
+                                          .withOpacity(0.67),
+                                    ),
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              children: [
+                                Radio<String>(
+                                  activeColor: const Color(0xFFFF7F7D),
+                                  value:
+                                      'Sokoto Street, Area 1, Garki Area 1 AMAC',
+                                  groupValue: _selectedPickup,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _selectedPickup = value;
+                                    });
+                                  },
+                                ),
+                                Text(
+                                  'Sokoto Street, Area 1, Garki Area 1 AMAC',
+                                  style: GoogleFonts.montserrat(
+                                    textStyle: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12.0,
+                                      height: 1.22,
+                                      color: const Color(0xFF2A2A2A)
+                                          .withOpacity(0.67),
+                                    ),
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              'Delivery', // Your label text
+                              style: GoogleFonts.montserrat(
+                                textStyle: TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.22,
+                                  color:
+                                      const Color(0xFF2A2A2A).withOpacity(0.63),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              controller: _addressController,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(9.0),
+                                  borderSide: BorderSide(
+                                    color: const Color(0xFF2A2A2A)
+                                        .withOpacity(0.7),
+                                    width: 1.0,
+                                  ),
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 12.0, horizontal: 16.0),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'This field is required';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              'Contact', // Your label text
+                              style: GoogleFonts.montserrat(
+                                textStyle: TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.22,
+                                  color:
+                                      const Color(0xFF2A2A2A).withOpacity(0.63),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              controller: _phone1Controller,
+                              keyboardType: TextInputType.phone,
+                              inputFormatters: [
+                                FilteringTextInputFormatter
+                                    .digitsOnly, // Only numbers can be entered
+                              ],
+                              maxLength: 11,
+                              decoration: InputDecoration(
+                                hintText: 'phone nos 1',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(9.0),
+                                  borderSide: BorderSide(
+                                    color: const Color(0xFF2A2A2A)
+                                        .withOpacity(0.7),
+                                    width: 1.0,
+                                  ),
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 12.0, horizontal: 16.0),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'This field is required';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            TextField(
+                              controller: _phone2Controller,
+                              keyboardType: TextInputType.phone,
+                              inputFormatters: [
+                                FilteringTextInputFormatter
+                                    .digitsOnly, // Only numbers can be entered
+                              ],
+                              maxLength: 11,
+                              decoration: InputDecoration(
+                                hintText: 'phone nos 2',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(9.0),
+                                  borderSide: BorderSide(
+                                    color: const Color(0xFF2A2A2A)
+                                        .withOpacity(0.7),
+                                    width: 1.0,
+                                  ),
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 12.0, horizontal: 16.0),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFFFF7F7D),
+                                foregroundColor: const Color(0xFF2A2A2A),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 16.0, horizontal: 16.0),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                              onPressed: () {
+                                if (_formKey.currentState?.validate() ??
+                                    false) {
+                                  _checkout();
+                                }
+                              },
+                              child: Text(
+                                'Go to Payment',
+                                style: GoogleFonts.montserrat(
+                                  textStyle: const TextStyle(
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.22,
+                                    color: Color(0xFF2A2A2A),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.1,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );
